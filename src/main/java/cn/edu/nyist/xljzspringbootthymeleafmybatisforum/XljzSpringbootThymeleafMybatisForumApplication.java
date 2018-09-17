@@ -8,5 +8,6 @@ public class XljzSpringbootThymeleafMybatisForumApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(XljzSpringbootThymeleafMybatisForumApplication.class, args);
+		
 	}
 }
