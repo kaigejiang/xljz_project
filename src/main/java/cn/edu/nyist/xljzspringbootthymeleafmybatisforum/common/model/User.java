@@ -60,4 +60,10 @@ public class User implements Serializable {
 		this.photo = photo;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", pwd=" + pwd + ", descri=" + descri + ", photo=" + photo + "]";
+	}
+	
+
 }

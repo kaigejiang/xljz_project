@@ -60,5 +60,12 @@ public class Card implements Serializable {
 		this.praise = praise;
 	}
 
+	@Override
+	public String toString() {
+		return "Card [id=" + id + ", name=" + name + ", content=" + content + ", uid=" + uid + ", praise=" + praise
+				+ "]";
+	}
+	
+
 	
 }

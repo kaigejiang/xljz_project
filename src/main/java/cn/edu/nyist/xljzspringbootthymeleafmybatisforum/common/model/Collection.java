@@ -24,5 +24,9 @@ public class Collection implements Serializable {
 	public void setUid(int uid) {
 		this.uid = uid;
 	}
+	@Override
+	public String toString() {
+		return "Collection [cid=" + cid + ", uid=" + uid + "]";
+	}
 	
 }

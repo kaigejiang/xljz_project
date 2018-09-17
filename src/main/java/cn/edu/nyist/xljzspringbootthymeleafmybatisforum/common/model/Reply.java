@@ -51,4 +51,9 @@ public class Reply implements Serializable {
 		this.comid = comid;
 	}
 
+	@Override
+	public String toString() {
+		return "Reply [id=" + id + ", content=" + content + ", uid=" + uid + ", comid=" + comid + "]";
+	}
+
 }
