@@ -14,6 +14,7 @@ public class Reply implements Serializable {
 	private String content;
 	private int uid;//外键-->用户表
 	private int comid;//外键-->评论表
+	private User user;
 
 	public Reply() {
 		// TODO Auto-generated constructor stub
@@ -49,6 +50,14 @@ public class Reply implements Serializable {
 
 	public void setComid(int comid) {
 		this.comid = comid;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

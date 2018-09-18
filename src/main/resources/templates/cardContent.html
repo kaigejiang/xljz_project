@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Insert title here</title>
+<link href="resources/bower_components/bootstrap/dist/css/bootstrap.css"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="resources/bower_components/jquery/dist/jquery.js">
+	</script>
+</head>
+<body>
+	<div class="container">
+		<!--个人信息  -->
+		<div class="card">
+			<div class="card-body">
+				<div class="col-md-12">
+					<ul class="nav">
+						<li class="nav-item"><a class="nav-link active" href="#">Home</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="#">Profile</a>
+						</li>
+						<li class="nav-item"><a class="nav-link disabled" href="#">Messages</a>
+						</li>
+						<li class="nav-item dropdown ml-md-auto"><a
+							class="nav-link dropdown-toggle" href="http://example.com"
+							id="navbarDropdownMenuLink" data-toggle="dropdown">Dropdown
+								link</a>
+							<div class="dropdown-menu dropdown-menu-right"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="#">Action</a> <a
+									class="dropdown-item" href="#">Another action</a> <a
+									class="dropdown-item" href="#">Something else here</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="#">Separated link</a>
+							</div></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- 帖子标题 -->
+		<div class="card">
+			<div class="card-body text-center" th:inline="text">
+				<h2>[[${card.name}]]</h2>
+				<hr />
+				楼主：[[${user.name}]] 收藏：[[${card.praise}]]
+				时间：[[${card.pubDate}!=null?${#dates.format({card.pubDate},'yyyy-MM-dd')}:'']]
+				评论：
+			</div>
+		</div>
+		<!--帖子内容  -->
+		<div class="card">
+			<div class="card-body">This is some text within a card body.</div>
+		</div>
+		<!--帖子评论  -->
+
+		<div class="card ">
+			<h5>评论区</h5>
+			<div class="col-md-12">
+				<form th:action="@{commentAdd}">
+					<input type="text" name="ccontent" class="col-md-11" /> <input
+						type="hidden" name="cuid" value="2"> <input type="hidden"
+						name="ccid" value="1"> <input type="submit" value="发表评论" />
+				</form>
+			</div>
+			<div class="card-body" th:if="${#lists.isEmpty(comments)}">暂无评论</div>
+			<div class="card" th:unless="${#lists.isEmpty(comments)}"
+				th:each="comment:${comments}">
+
+				<div class="card-body" th:inline="text">
+					作者：[[${comment.user.name}]]
+					<hr />
+					[[${comment.content}]]<hr/>
+						<form th:action="@{replyAdd}">
+							<input type="button" class="col-md-1" value="回复"  />
+							<div id="replyContent" class="hiddenDiv" style="display: none">
+								<input type="button" class="col-md-2" value="收起回复"  />
+								<input type="text" name="rcontent" class="col-md-11" /> <input
+									type="hidden" name="ruid" value="2"> <input
+									type="hidden" name="rcomid" th:value="${comment.id}"> <input
+									type="submit" value="回复"  />
+							</div>
+						</form>
+						
+					<div class="card-body text-right" th:inline="text"
+						th:each="reply:${comment.replys}">
+						
+						作者： [[${reply.user.name}]]
+						<hr />
+						[[${reply.content}]]
+					</div>
+				</div>
+				<div class="col-md-12"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	$(".col-md-1").click(function(){
+		$(this).hide();
+		$(this).next(".hiddenDiv").show();
+		});
+	$(".col-md-2").click(function(){
+		$(this).parent(".hiddenDiv").hide();
+		$(this).parent(".hiddenDiv").prev(".col-md-1").show();
+		});
+	
+	</script>
+</body>
+</html>

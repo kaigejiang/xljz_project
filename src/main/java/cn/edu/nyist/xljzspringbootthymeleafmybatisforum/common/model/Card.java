@@ -1,6 +1,9 @@
 package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.common.model;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 /**
@@ -15,6 +18,8 @@ public class Card implements Serializable {
 	private String content;//帖子的内容
 	private int uid;//外键 -->用户表user
 	private int praise;//点赞数
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date pubDate;// 发布时间
 
 	public Card() {
 		// TODO Auto-generated constructor stub
@@ -60,11 +65,21 @@ public class Card implements Serializable {
 		this.praise = praise;
 	}
 
+	public Date getPubDate() {
+		return pubDate;
+	}
+
+	public void setPubDate(Date pubDate) {
+		this.pubDate = pubDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Card [id=" + id + ", name=" + name + ", content=" + content + ", uid=" + uid + ", praise=" + praise
-				+ "]";
+				+ ", pubDate=" + pubDate + "]";
 	}
+
+
 	
 
 	
