@@ -51,4 +51,10 @@ public class Comment implements Serializable {
 		this.uid = uid;
 	}
 
+	@Override
+	public String toString() {
+		return "Comment [id=" + id + ", content=" + content + ", cid=" + cid + ", uid=" + uid + "]";
+	}
+	
+
 }
