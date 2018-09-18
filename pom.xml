@@ -69,8 +69,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.47</version>
-		</dependency>
+			</dependency>
 		<!-- 阿里连接池 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>

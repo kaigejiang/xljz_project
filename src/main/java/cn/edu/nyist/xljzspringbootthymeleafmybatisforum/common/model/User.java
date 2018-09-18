@@ -2,6 +2,10 @@ package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.common.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Length;
+
 
 /**
  * @author binxu
@@ -11,7 +15,9 @@ public class User implements Serializable {
   
 	private static final long serialVersionUID = 1L;
 	private int id;
+	@Size(min=1,max=20,message="{required.book.name}")
 	private String name;
+	@Length(min=6,max=20,message="{length.user.pwd}")
 	private String pwd;
 	private String descri;
 	private String photo;
