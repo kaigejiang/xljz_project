@@ -2,7 +2,6 @@ package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service;
 
 import java.util.List;
 
-import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.common.model.Comment;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.common.model.Reply;
 
 public interface ReplyService {

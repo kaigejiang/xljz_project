@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link th:href="@{/resources/bower_components/bootstrap/dist/css/bootstrap.css}" rel="stylesheet" type="text/css"/>
+<title>用户信息</title>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2" style="margin-left: 40px">
+		<!-- 左边部分 -->
+		<div th:replace="front/commen/left::userleft"></div>
+		</div>
+		<div class="col-md-9 card text-white bg-dark mb-3">
+		<div class="card-header text-center" style="color: tomato;font-weight: bold;">基本信息</div>
+			<form th:action="@{/front/userEdit}" method="post" enctype="multipart/form-data" th:object="${user}">
+				<ul class="list-group list-group-flush">
+	  				<li class="list-group-item" style="background-color: #343a40">用户名：<div style="display:inline;" >
+	  						<input th:field="*{name}" class="form-control" style="display:inline;width:100px" />
+	  					</div></li>
+	  				<li class="list-group-item" style="background-color: #343a40">头像：<div style="display:inline;">
+	  					<img alt="" th:src="@{'/upload/'+*{photo}}" style="width: 100px"onerror="this.onerror='';src='/resources/userimage/default.jpg'"/>
+	  						<input type="file" class="custom-file-input" name="photox" id="customFile" style="width: 0%"/>
+	  						<label class="custom-file-label" for="customFile"style="width: 200px;margin-left: 190px;margin-top: 33px"></label>
+	  					</div></li>
+	 			 	<li class="list-group-item" style="background-color: #343a40">个人签名：<div style="display:inline;">
+	 			 			<textarea th:field="*{descri}" class="form-control"></textarea>
+	 			 		</div></li>
+				</ul>
+				<div class="text-center">
+					<input th:field="*{id}"type="hidden" />
+					<button type="submit" class="btn btn-success" style="margin: 8px">提交</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js">
+</script>
+</body>
+</html>
