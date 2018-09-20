@@ -4,19 +4,37 @@
 <meta charset="UTF-8" />
 <title>注册</title>
 <!-- 响应式 -->
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <link href="resources/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
-
+<link href="resources/style.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
 .container-fluid.w-50 {
 	position: fixed;
 	left: 50%;
 	top: 50%;
 }
+#pwdIcon span,#nameIcon span{
+position:absolute;
+    left:4%;
+    top:10px;
+    color: #4D4D4D;
+}
+#footercont{
+	color: #4D4D4D
+}
 </style>
 </head>
 <body>
+	<ul class="nav justify-content-end">
+  
+  <li class="nav-item">
+    <a class="nav-link" href="/toLogin">登录</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/exit">退出</a>
+  </li>
+  
+</ul>	
 	<div class="container-fluid w-50" style="background-color:#F5F5F5;">
 		<div class="row">
 			<div class="col-md-12">
@@ -25,18 +43,21 @@
 				<div class="alert alert-primary" role="alert" th:text="${msg}" style="background-color: #F5F5F5; border-color:#F5F5F5;"></div>
 				<form action="reg" method="post" enctype="multipart/form-data">
 					<!-- name -->
-					<div class="form-group row ">
-						<label for="inputName" class="col-sm-2 col-form-label">用户名</label>
+					<div class="form-group row " id="nameIcon">
+						<label for="inputName" class="col-sm-2 col-form-label" >用户名</label>
 						<div class="col-sm-10">
 							<!-- value="${param.name}",用户名回填 -->
-							<input type="text" class="form-control" id="inputName" placeholder="用户名" name="name" th:value="${param.name!=null?param.name[0]:''}" required="true"/>
+							<span class="icon-user"></span>
+							<span class="icon-pencil"></span>
+							<input  type="text" class="form-control" id="inputName" placeholder="用户名" name="name" th:value="${param.name!=null?param.name[0]:''}" required="required" style="padding-left: 35px"/>
 						</div>
 					</div>
 					<!-- pwd -->
-					<div class="form-group row ">
+					<div class="form-group row " id="pwdIcon">
 						<label for="inputPassword3" class="col-sm-2 col-form-label">密码</label>
 						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3" placeholder="密码" name="pwd" required="true"/>
+							<span class="icon-lock"></span> 
+							<input type="password" class="form-control" id="inputPassword3" placeholder="密码" name="pwd" required="required" style="padding-left: 30px"/>
 						</div>
 					</div>
 					<!-- descri -->
@@ -50,32 +71,44 @@
 					<div class="form-group row">
 						<label for="inputPhoto" class="col-sm-2 col-form-label">图片</label>
 						<div class="col-sm-10">
-							<input type="file" id="inputPhoto" name="photop" class="form-control" />
+							<input type="file" id="inputPhoto" name="photop" class="form-control" required="required" />
 						</div>
 					</div>
 					<!-- vcode -->
 					<div class="form-group row ">
 						<label for="inputVcode" class="col-sm-2 col-form-label">验证码</label>
 						<div class="col-sm-6">
+						
 							<!-- 验证码不需要提示功能，用autocomplete="off"来关闭，为on时打开 -->
 							<input type="text" class="form-control" id="inputVcode" placeholder="验证码" name="vcode" maxlength="4" autocomplete="off" required="required"/>
 						</div>
 						<div class="col-sm-4">
-							<img title="点击更换图片" src="vcode.png" class="vcodeimg" /> <a class="vcodeimg">看不清，换一张</a>
+							
+							<img title="点击更换图片" src="vcode.png" class="vcodeimg" /> <a class="vcodeimg">看不清，换一张</a> 
 						</div>
 					</div>
 
-					<button type="submit" class="btn btn-primary btn-lg btn-block">同意服务条款并注册</button>
-					<div class="form-group row ">
-						<div class="col-sm-2" style="margin-top: 8px">
-							<a href="/toLogin">登录</a>
-						</div>
-					</div>
-
+					<button type="submit" class="btn btn-primary btn-lg btn-block" style="background-color:rgb(73,134,208)">同意服务条款并注册</button>
+					
 
 				</form>
 			</div>
 		</div>
+	</div>
+	<div class="footer" style="background-color:#e5e5e5;position:fixed;height: 80px;width:100%;bottom: 0;">
+		<div style="text-align: center;" id="footercont">
+			<a href="#" target="_blank" >关于论坛</a> |
+			<a href="#" target="_blank" >广告服务</a> |
+			<a href="#" target="_blank" >商务洽谈</a> |
+			<a href="#" target="_blank" >联系方式</a> |
+			<a href="#" target="_blank" >客服中心</a> |
+			<a href="#" target="_blank" >网站导航</a> <br>
+		</div>
+		<div style="text-align: center;line-height: 80px;margin-top: -20px">
+			 <p class="text-center" >Copyright © 2018-10-1 All rights reserved.</p>
+		</div>
+	
+	
 	</div>
 	<script type="text/javascript" src="resources/bower_components/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

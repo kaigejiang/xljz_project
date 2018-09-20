@@ -3,8 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <title>主页面</title>
+<link href="resources/bower_components/bootstrap/dist/css/bootstrap.css"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="resources/bower_components/jquery/dist/jquery.js"></script>
+<script type="text/javascript"
+	src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<link href="resources/style.css" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+#pwdIcon span, #nameIcon span {
+	position: absolute;
+	left: 8%;
+	top: 10px;
+	color: #4D4D4D;
+}
+</style>
 </head>
 <body>
-<h1>main</h1>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="nav">
+					<li class="nav-item"><a class="nav-link active" href="#">Home</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">Profile</a>
+					</li>
+					
+					<li class="nav-item dropdown ml-md-auto">
+						<!--  <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">登录</a> -->
+
+						<!-- 此处添加模态框 --> <!-- Button trigger modal -->
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#exampleModalCenter" style="background-color: white;border: none;color: #4D4D4D;margin-top: 3px">登录</button>
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true" data-backdrop="false">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header"
+										style="background-color: rgb(73, 134, 208)">
+										<h5 class="modal-title" id="exampleModalCenterTitle">
+											<b style="font-style: inherit; color: white;">##社区</b>
+										</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<!-- 模态对话框内容 -->
+										<div class="container-fluid"
+											style="background-color: #F5F5F5;">
+											<div class="row">
+												<div class="col-md-12">
+
+													<!-- 如果用户名或密码错了，给用户个提示  -->
+													<div class="alert alert-primary offset-md-2" role="alert" th:text="${msg}" style="background-color: #F5F5F5; border-color: #F5F5F5;"></div>
+													<form action="login" method="post">
+														<div class="form-group row offset-md-2" id="nameIcon">
+
+															<div class="col-sm-10">
+																<span class="icon-pencil"></span>
+																<!-- value="${param.name}",用户名回填 -->
+																	<span class="icon-user"></span> <input type="text"
+																	class="form-control" id="inputName" placeholder="用户名"
+																	name="name"
+																	th:value="${param.name!=null?param.name[0]:''}"
+																	required="required" style="padding-left: 30px" />
+															</div>
+														</div>
+														<div class="form-group row offset-md-2" id="pwdIcon">
+
+															<div class="col-sm-10">
+																<span class="icon-lock"></span> 
+																<input type="password" class="form-control"
+																	id="inputPassword3" placeholder="密码" name="pwd"
+																	required="required" style="padding-left: 35px" />
+															</div>
+														</div>
+														<!-- 记住我 -->
+
+
+														<!-- 这里把验证码删去了 -->
+														<div class="form-group row offset-md-2">
+															<div class="col-sm-10">
+																<button type="submit"
+																	class="btn btn-primary btn-lg btn-block"
+																	style="background-color: rgb(73, 134, 208)">登录</button>
+															</div>
+														</div>
+
+														<div class="form-group row offset-md-2">
+															<div class="col-sm-10" style="margin-top: 8px;">
+																<a href="/toReg">立即注册</a>
+															</div>
+														</div>
+
+
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"data-dismiss="modal">关闭</button>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="nav-item"><a class="nav-link disabled" href="/toReg">注册</a>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	/*  页面加载完执行此函数 */  
+	$(function () {   
+	    /* 用于拖动div标签 */  
+	     $( "#exampleModalCenter" ).draggable();  
+	    /*  激活提示框 */  
+	     $('#identifier').tooltip(options)  
+	       
+	      
+	});  
+
+	</script>
+
+
+
+
+
+
 </body>
 </html>

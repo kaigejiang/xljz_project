@@ -6,57 +6,82 @@
 <!-- 响应式 -->
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <link href="resources/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
-
+<link href="resources/style.css" rel="stylesheet" type="text/css"/>
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=your appkey" type="text/javascript" charset="utf-8"></script>
 <style type="text/css">
 .container-fluid.w-50 {
 	position: fixed;
 	left: 50%;
 	top: 50%;
 }
+body{
+	background-color:#f7f7f7	
+}
+#pwdIcon span,#nameIcon span{
+position:absolute;
+    left:6%;
+    top:10px;
+    color: #4D4D4D;
+}
+#footercont{
+	color: #4D4D4D
+}
+
+
 </style>
 </head>
+
 <body>
-	<div class="container-fluid w-50">
+	<ul class="nav justify-content-end">
+  
+  <li class="nav-item">
+    <a class="nav-link" href="/toReg">注册</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/exit">退出</a>
+  </li>
+  
+</ul>	
+
+	<div class="container-fluid w-50" style="background-color:white;">
 		<div class="row">
 			<div class="col-md-12">
 
 				<!-- 如果用户名或密码错了，给用户个提示  -->
 				<div class="alert alert-primary offset-md-2" role="alert" th:text="${msg}" style="background-color: white; border-color: white;"></div>
 				<form action="login" method="post">
-					<div class="form-group row offset-md-2">
-
-						<div class="col-sm-10">
-							<span class="icon-pencil"></span>
+					<div class="form-group row offset-md-2" id="nameIcon">
+						<div class="col-sm-10">	
 							<!-- value="${param.name}",用户名回填 -->
-							<input type="text" class="form-control" id="inputName" placeholder="用户名" name="name" th:value="${param.name!=null?param.name[0]:''}" required="required"/>
+							<span class="icon-user"></span>
+							<input type="text" class="form-control" id="inputName" placeholder="用户名" name="name" th:value="${param.name!=null?param.name[0]:''}" required="required" style="padding-left: 35px"/>
 						</div>
 					</div>
-					<div class="form-group row offset-md-2">
+					<div class="form-group row offset-md-2" id="pwdIcon">
 
-						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3" placeholder="密码" name="pwd" required="required"/>
+						<div class="col-sm-10" >
+							<span class="icon-lock"></span> 
+							<input type="password" class="form-control" id="inputPassword3" placeholder="密码" name="pwd" required="required" style="padding-left: 30px"/>
 						</div>
 					</div>
-
-					<div class="form-group row offset-md-2">
-
-						<div class="col-sm-6">
-							<!-- 验证码不需要提示功能，用autocomplete="off"来关闭，为on时打开 -->
-							<input type="text" class="form-control" id="inputVcode" placeholder="验证码" name="vcode" maxlength="4" autocomplete="off" required="required"/>
-						</div>
-						<div class="col-sm-4">
-							<img title="点击更换图片" src="vcode.png" class="vcodeimg" /> <a class="vcodeimg">看不清，换一张</a>
-						</div>
-					</div>
+					
 					<div class="form-group row offset-md-2">
 						<div class="col-sm-10">
-							<button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
+							<button type="submit" class="btn btn-primary btn-lg btn-block" style="background-color:rgb(73,134,208)">登录</button>
 						</div>
 					</div>
 
 					<div class="form-group row offset-md-2">
 						<div class="col-sm-4" style="margin-top: 8px">
 							<a href="/toReg">立即注册</a>
+							
+						</div>
+					</div>
+					
+					<div class="form-group row offset-md-2">
+						<div class="col-sm-10">
+							<hr style="height:1px;border:none;border-top:1px solid #CDCDC1;" />
+							<span class="icon-bubbles"></span>
 						</div>
 					</div>
 
@@ -64,17 +89,31 @@
 				</form>
 			</div>
 		</div>
+		
 	</div>
+	
+	<div class="footer" style="background-color:#e5e5e5;position:fixed;height: 80px;width:100%;bottom: 0;">
+		<div style="text-align: center;" id="footercont">
+			<a href="#" target="_blank" >关于论坛</a> |
+			<a href="#" target="_blank" >广告服务</a> |
+			<a href="#" target="_blank" >商务洽谈</a> |
+			<a href="#" target="_blank" >联系方式</a> |
+			<a href="#" target="_blank" >客服中心</a> |
+			<a href="#" target="_blank" >网站导航</a> <br>
+		</div>
+		<div style="text-align: center;line-height: 80px;margin-top: -20px">
+			 <p class="text-center" >Copyright © 2018-10-1 All rights reserved.</p>
+		</div>
+	
+	
+	</div>
+	
 	<script type="text/javascript" src="resources/bower_components/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		//保证和位置无关
 		$(function() {
-			$(".col-sm-4 .vcodeimg").click(function() {
-				$(".col-sm-4 .vcodeimg").attr("src", "vcode.png?v=" + Math.random());
-			});
-
-
+			
 			//将登录框移动到中间位置
 			$(".container-fluid.w-50").css({
 					"margin-top":-$(".container-fluid.w-50").height()/2+"px",
@@ -86,7 +125,46 @@
 		
 	</script>
 
+<!-- 新浪登录 -->
+<a href="javascript:void(0);" id="login_sina">新浪</a>
+<script type="text/javascript">
+$("#login_sina").on("click",function(){ 
+    // 弹出登入窗口
+    WB2.login(function(){
+        // 验证是否登入成功
+        if(WB2.checkLogin()){
+            // api 入口
+            WB2.anyWhere(function(W){
+                // 调用 account/get_uid 接口，获取用户信息
+                W.parseCMD('/account/get_uid.json', function(oResult, bStatus){
+                    if(bStatus){
+                        console.info(oResult.uid);//此uid是唯一id，下次登录通过此id来判断是否已经登陆过了
+                        // 本地验证 uid 是否存在，如果存在则自动登入绑定账户，不存在则不做任何操作
+                        $.ajax({
+                            type: 'POST',
+                            url: '',
+                            data:{},
+                            success: function(msg){
+                                if(msg == 1){
 
+                                    location.reload();
+                                }else{
+                                   // 未绑定账号，进行绑定或者注册
+
+                                }
+                            }
+                        });
+                    }
+                }, {}, {
+                    method : 'get',
+                    cache_time : 30
+                });
+            });
+        }
+    });
+});
+
+</script>
 
 
 </body>

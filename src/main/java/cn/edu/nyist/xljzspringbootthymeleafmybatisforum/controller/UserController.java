@@ -18,11 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.UserService;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.common.model.User;
 
-
 @Controller
 public class UserController {
 	@Autowired
 	private UserService userService;
+	
+	
 
 	public UserController() {
 
@@ -39,7 +40,8 @@ public class UserController {
 		public String reg(@ModelAttribute User user,@RequestParam String vcode,@RequestParam MultipartFile photop,HttpServletRequest request,Model model,HttpSession session) throws Exception, IOException {
 			// 先进行验证码验证，验证通过才能访问数据库
 			// 获取服务器端验证码
-			String servserCode = (String) session.getAttribute(ValidVController.serverVcodeName);
+			String servserCode = (String) session.getAttribute(ValidVController.serverVcodeName);			
+			//将用户输入的验证码和服务器端进行比较
 			if (!servserCode.equalsIgnoreCase(vcode)) {
 				model.addAttribute("msg", "验证码错误");
 				return "/reg";
@@ -77,14 +79,14 @@ public class UserController {
 
 	//登录
 	@RequestMapping(path = "/login")
-	public String login(@RequestParam String name, @RequestParam String pwd, @RequestParam String vcode, Model model,HttpSession session) {
+	public String login(@RequestParam String name, @RequestParam String pwd, Model model,HttpSession session) {
 		// 先进行验证码验证，验证通过才能访问数据库
 		// 获取服务器端验证码
-		String servserCode = (String) session.getAttribute(ValidVController.serverVcodeName);
+		/*String servserCode = (String) session.getAttribute(ValidVController.serverVcodeName);
 		if (!servserCode.equalsIgnoreCase(vcode)) {
 			model.addAttribute("msg", "验证码错误");
 			return "/login";
-		}
+		}*/
 
 		User user = userService.find(name, pwd);
 		System.out.println("========="+user);
@@ -94,14 +96,20 @@ public class UserController {
 		}
 		// 存下来，以便后面根据us的值判断是否登录
 		session.setAttribute("user", user);
-		//return "redirect:/main";
 		return "redirect:/home";
+		
 	}
 	
 	@RequestMapping("/home")
 	public String toHome() {
 		return "main";
 	}
+	
+	@RequestMapping("/exit")
+	public String xx() {
+		return "redirect:/home";
+	}
+	
 	
 	
 }
