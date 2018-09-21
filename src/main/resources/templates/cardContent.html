@@ -9,12 +9,19 @@
 <script type="text/javascript"
 	src="resources/bower_components/jquery/dist/jquery.js">
 	</script>
+<script type="text/javascript"
+	src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <link
 	href="resources/bower_components/icomoon/font_cs30ft1kp7u/iconfont.css"
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="resources/bower_components/icomoon/font_cs30ft1kp7u/iconfont.js">
 	</script>
+<script type="text/javascript"
+	src="resources/bower_components/axios/dist/axios.js">
+	</script>
+<script type="text/javascript"
+	src="resources/bower_components/vue/dist/vue.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -52,7 +59,7 @@
 				<hr />
 				楼主：[[${user.name}]] 收藏：[[${card.praise}]]
 				时间：[[${card.pubDate}!=null?${#dates.format({card.pubDate},'yyyy-MM-dd')}:'']]
-				[[${session.user.name}]]
+				[[${session.user}!=null?${session.user.name}:'游客']]
 			</div>
 		</div>
 		<!--帖子内容  -->
@@ -63,9 +70,9 @@
 				<div th:if="${collection==null}">
 					<form th:action="@{collectionAdd}">
 						<i class="icon iconfont icon-shoucang" id="icon-shoucang"></i> <input
-							type="hidden" name="uid" th:value="${session.user.id}" /> <input
-							type="hidden" name="cid" th:value="${card.id}" /> <input
-							type="submit" value="收藏">
+							type="hidden" name="uid" th:value="${session.user.id}" id="uid1" />
+						<input type="hidden" name="cid" th:value="${card.id}" id="cid1" />
+						<input type="submit" value="收藏">
 					</form>
 				</div>
 
@@ -73,20 +80,28 @@
 					<form th:action="@{collectionDel}">
 						<i class="icon iconfont icon-shoucang" id="icon-shoucang"
 							style="color: blue"></i> <input type="hidden" name="uid"
-							th:value="${session.user.id}" /> <input type="hidden" name="cid"
-							th:value="${card.id}" /> <input type="submit" value="取消收藏">
+							id="uid2" th:value="${session.user.id}" /> <input type="hidden"
+							name="cid" id="cid2" th:value="${card.id}" /> <input
+							type="submit" value="取消收藏">
 					</form>
 				</div>
 			</div>
 			<div th:unless="${session.user!=null}">
-			<!-- 没有登录弹出登录框 -->
-				<form >
-					<i class="icon iconfont icon-shoucang" id="icon-shoucang"></i> <input
-						type="submit" value="收藏">
+				<!-- 没有登录弹出登录框 -->
+				<form>
+					<i class="icon iconfont icon-shoucang" id="icon-shoucang"></i> 
+				<!-- 	<input type="submit" value="收藏"> -->
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#exampleModalCenter" style="background-color: white;border: none;color: #4D4D4D;margin-top: 3px">收藏</button>
+					
 				</form>
 			</div>
+			<!-- 帖子的html -->
 			<div class="card-body">
-			<!-- <a th:href="@{'/upload/word/'+${outPut}}">123</a> -->
+				<!-- <div th:src="@{'/upload/word/'+${outPut}}"> </div> -->
+				<iframe th:src="@{'/upload/word/'+${outPut}}" width="1000"
+					height="800" frameborder="0"></iframe>
 			</div>
 
 		</div>
@@ -95,11 +110,22 @@
 		<div class="card ">
 			<h5>评论区</h5>
 			<div class="col-md-12">
-				<form th:action="@{commentAdd}">
-					<input type="text" name="ccontent" class="col-md-11" /> <input
-						type="hidden" name="cuid" value="2"> <input type="hidden"
-						name="ccid" value="1"> <input type="submit" value="发表评论" />
-				</form>
+				<!-- 判断是否已经登录 -->
+				<div th:if="${session.user!=null}">
+					<form th:action="@{commentAdd}">
+						<input type="text" name="ccontent" class="col-md-11" /> <input
+							type="hidden" name="cuid" th:value="${session.user.id}">
+						<input type="hidden" name="ccid" th:value="${card.id}"> <input
+							type="submit" value="发表评论" />
+					</form>
+				</div>
+				<div th:unless="${session.user!=null}">
+					<!-- 没有登录弹出登录框 -->
+						<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#exampleModalCenter" style="background-color: white;border: none;color: #4D4D4D;margin-top: 3px">评论</button>
+					
+				</div>
 			</div>
 			<div class="card-body" th:if="${#lists.isEmpty(comments)}">暂无评论</div>
 			<div class="card" th:unless="${#lists.isEmpty(comments)}"
@@ -110,28 +136,126 @@
 					<hr />
 					[[${comment.content}]]
 					<hr />
-					<form th:action="@{replyAdd}">
-						<input type="button" class="col-md-1" value="回复" />
-						<div id="replyContent" class="hiddenDiv" style="display: none">
-							<input type="button" class="col-md-2" value="收起回复" /> <input
-								type="text" name="rcontent" class="col-md-11" /> <input
-								type="hidden" name="ruid" value="2"> <input
-								type="hidden" name="rcomid" th:value="${comment.id}"> <input
-								type="submit" value="回复" />
+					<!-- 回复框 -->
+					<div th:if="${session.user!=null}">
+						<form action="replyAdd">
+							<input type="button" class="col-md-1" value="回复" />
+							<div id="replyContent" class="hiddenDiv" style="display: none">
+							<input type="button" class="col-md-2" value="收起回复" /> 
+							
+							<input type="text" name="rcontent" id="rcontent" class="col-md-11" />
+							<input type="hidden" name="ruid" id="ruid" th:value="${session.user.id}"> <input type="hidden"
+									name="rcomid" id="rcomid" th:value="${comment.id}"> <input
+									type="hidden" name="rcid" id="rcid" th:value="${card.id}">
+								<input type="submit" value="回复" />
+							</div>
+						</form>
+					</div>
+					<div th:unless="${session.user!=null}">
+						<!-- 没有登录弹出登录框 -->
+							<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#exampleModalCenter" style="background-color: white;border: none;color: #4D4D4D;margin-top: 3px">回复</button>
+					
+					</div>
+					<!-- 折叠效果 -->
+					<a class="detailmain_a" href="javascript:void(0);"
+						id="detailmain_a"> <span id="view_details">展开回复></span><i
+						class="fa fa-angle-right"></i>
+					</a>
+					<div id="deal_info_box" class="deal_info_box" style="display:none">
+						<div class="card-body text-right" th:inline="text"
+							th:each="reply:${comment.replys}">
+							<!-- 回复内容 -->
+							作者： [[${reply.user.name}]] 时间：
+							[[${reply.rdate}!=null?${#dates.format({reply.rdate},'yyyy-MM-dd')}:'']]
+							<hr />
+							[[${reply.content}]]
 						</div>
-					</form>
-
-					<div class="card-body text-right" th:inline="text"
-						th:each="reply:${comment.replys}">
-
-						作者： [[${reply.user.name}]]
-						<hr />
-						[[${reply.content}]]
+						
 					</div>
 				</div>
 				<div class="col-md-12"></div>
 			</div>
 		</div>
+		<!-- 模态对话框 -->
+		<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true" data-backdrop="false">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header"
+										style="background-color: rgb(73, 134, 208)">
+										<h5 class="modal-title" id="exampleModalCenterTitle">
+											<b style="font-style: inherit; color: white;">##社区</b>
+										</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<!-- 模态对话框内容 -->
+										<div class="container-fluid"
+											style="background-color: #F5F5F5;">
+											<div class="row">
+												<div class="col-md-12">
+
+													<!-- 如果用户名或密码错了，给用户个提示  -->
+													<div class="alert alert-primary offset-md-2" role="alert" th:text="${msg}" style="background-color: #F5F5F5; border-color: #F5F5F5;"></div>
+													<form action="login" method="post">
+														<div class="form-group row offset-md-2" id="nameIcon">
+
+															<div class="col-sm-10">
+																<span class="icon-pencil"></span>
+																<!-- value="${param.name}",用户名回填 -->
+																	<span class="icon-user"></span> <input type="text"
+																	class="form-control" id="inputName" placeholder="用户名"
+																	name="name"
+																	th:value="${param.name!=null?param.name[0]:''}"
+																	required="required" style="padding-left: 30px" />
+															</div>
+														</div>
+														<div class="form-group row offset-md-2" id="pwdIcon">
+
+															<div class="col-sm-10">
+																<span class="icon-lock"></span> 
+																<input type="password" class="form-control"
+																	id="inputPassword3" placeholder="密码" name="pwd"
+																	required="required" style="padding-left: 35px" />
+															</div>
+														</div>
+														<!-- 记住我 -->
+
+
+														<!-- 这里把验证码删去了 -->
+														<div class="form-group row offset-md-2">
+															<div class="col-sm-10">
+																<button type="submit"
+																	class="btn btn-primary btn-lg btn-block"
+																	style="background-color: rgb(73, 134, 208)">登录</button>
+															</div>
+														</div>
+
+														<div class="form-group row offset-md-2">
+															<div class="col-sm-10" style="margin-top: 8px;">
+																<a href="/toReg">立即注册</a>
+															</div>
+														</div>
+
+
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"data-dismiss="modal">关闭</button>
+										
+									</div>
+								</div>
+							</div>
+						</div>
 	</div>
 	<script type="text/javascript">
 	$(".col-md-1").click(function(){
@@ -144,8 +268,35 @@
 		});
 	$(".icon-thumbsup").click(function(){
 		$(this).addClass(".active")
-		})
+		});
 	
+	$(function view_details_click(){
+		$(".detailmain_a").bind('click',function(){
+			if($(this).next(".deal_info_box").is(":hidden")){
+				$(this).next(".deal_info_box").show();
+				
+				$(this).find("#view_details").text("收起回复");
+				$(this).find(".fa").removeClass("fa-angle-right").addClass("fa-angle-down");
+			}
+			else{
+				$(this).next(".deal_info_box").hide();
+				$(this).find("#view_details").text("展开回复");
+				$(this).find(".fa").removeClass("fa-angle-down").addClass("fa-angle-right");
+			}
+		});
+		
+	});
+	</script>
+
+	<script type="text/javascript">
+	$(function () {   
+	    /* 用于拖动div标签 */  
+	     $( "#exampleModalCenter" ).draggable();  
+	    /*  激活提示框 */  
+	     $('#identifier').tooltip(options)  
+	       
+	      
+	});  
 	</script>
 </body>
 </html>

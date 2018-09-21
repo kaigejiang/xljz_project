@@ -1,6 +1,7 @@
 package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.common.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -14,6 +15,7 @@ public class Reply implements Serializable {
 	private String content;
 	private int uid;//外键-->用户表
 	private int comid;//外键-->评论表
+	private Date rdate;
 	private User user;
 
 	public Reply() {
@@ -52,12 +54,22 @@ public class Reply implements Serializable {
 		this.comid = comid;
 	}
 
+	
+
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Date getRdate() {
+		return rdate;
+	}
+
+	public void setRdate(Date rdate) {
+		this.rdate = rdate;
 	}
 
 	@Override

@@ -1,13 +1,12 @@
 package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.controller;
 
+import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.CardService;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.CollectionService;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.CommentService;
@@ -30,7 +29,6 @@ public class CardContentController {
 	private ReplyService replyService;
 	@Autowired
 	private CollectionService collectionService;
-	
 	@RequestMapping("/toCardContent")
 	//参数要通过主页面传参过来一个ID
 	public String toCard(Model model, @RequestParam(defaultValue="0") int uid,@RequestParam(defaultValue="1") int cid) {
@@ -58,14 +56,21 @@ public class CardContentController {
 	public String commentAdd(@RequestParam("cuid") int uid,@RequestParam("ccontent") String content,@RequestParam("ccid") int cid) {
 		int ret=commentService.insert(uid,content,cid);
 		System.out.println(ret+"---------------------------------------");
-		return "redirect:/toCardContent";
+		return "redirect:/toCardContentt?uid="+uid+"&cid="+cid;
 	}
 	
 	@RequestMapping("/replyAdd")
-	public String replyAdd(@RequestParam("ruid") int uid,@RequestParam("rcontent") String content,@RequestParam("rcomid") int comid) {
-		int ret=replyService.insert(uid,content,comid);
+	public String replyAdd(@RequestParam("ruid") int uid,@RequestParam("rcontent") String content,@RequestParam("rcomid") int comid, @RequestParam("rcid") int cid) {
+		Date date=new Date();
+		int ret=replyService.insert(uid,content,comid,date);
 		System.out.println(ret+"---------------------------------------");
 		
-		return "redirect:/toCardContent";
+		if(ret>0) {
+			return "redirect:/toCardContent?uid="+uid+"&cid="+cid;
+		}else {
+		return "err";
+		}
+		
 	}
 }
+

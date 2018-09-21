@@ -1,5 +1,6 @@
 package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,9 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public int insert(int uid, String content, int comid) {
+	public int insert(int uid, String content, int comid,Date date) {
 		
-		return replyMapper.insert(uid,content,comid);
+		return replyMapper.insert(uid,content,comid,date);
 	}
 
 }
