@@ -86,7 +86,22 @@
 														<!-- 记住我 -->
 
 
-														<!-- 这里把验证码删去了 -->
+														<!-- 验证码 -->
+														<!-- vcode -->
+					<div class="form-group row offset-md-2">
+						
+						<div class="col-sm-6">
+						
+							<!-- 验证码不需要提示功能，用autocomplete="off"来关闭，为on时打开 -->
+							<input type="text" class="form-control" id="inputVcode" placeholder="验证码" name="vcode" maxlength="4" autocomplete="off" required="required"/>
+						</div>
+						<div class="col-sm-4">
+							
+							<img title="点击更换图片" src="vcode.png" class="vcodeimg" /> <a class="vcodeimg">看不清，换一张</a> 
+						</div>
+					</div>
+					
+														
 														<div class="form-group row offset-md-2">
 															<div class="col-sm-10">
 																<button type="submit"
@@ -107,10 +122,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"data-dismiss="modal">关闭</button>
-										
-									</div>
+									
 								</div>
 							</div>
 						</div>
@@ -132,6 +144,12 @@
 	      
 	});  
 
+	$(function() {
+		$(".col-sm-4 .vcodeimg").click(function() {
+			console.log("=====================");
+			$(".col-sm-4 .vcodeimg").attr("src", "vcode.png?v=" + Math.random());
+		});
+	});
 	</script>
 
 
