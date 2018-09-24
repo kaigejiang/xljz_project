@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <head> 
+  <meta charset="UTF-8" /> 
+  <title>主页面</title> 
+  <base th:href="@{${#httpServletRequest.getScheme()}+'://'+${#httpServletRequest.getServerName()}+':'+${#httpServletRequest.getServerPort()}+'/'}" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
+  <link href="resources/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> 
+  <!-- 加上vue ajax --> 
+  <script type="text/javascript" src="resources/bower_components/vue/dist/vue.min.js"></script> 
+  <script type="text/javascript" src="resources/bower_components/axios/dist/axios.min.js"></script> 
+ </head> 
+ <body> 
+  <div class="container-fluid" id="app"> 
+   <!--  全站搜索顶部--> 
+   <!-- <div class="row card">
+		<div class="col-md-12" th:replace="common/nav::nav"></div>
+		</div> --> 
+   <!--  顶部--> 
+   <!-- 中间部分 --> 
+   <div class="row card"> 
+    <div class="col-md-12"> 
+     <nav class="navbar navbar-expand-lg navbar-light bg-light"> 
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="navbar-toggler-icon"></span> </button> 
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+       <nav class="navbar navbar-light bg-light"> 
+        <div> 
+         <form class="form-inline" action="admin/home" id="sortForm" v-on:click.prevent="onSubmit"> 
+         <!-- 默认看第一页 ,简化点击分页链接时候带表单参数问题-->
+         <input name="pageNum" type="hidden" value="1" />
+          <!-- 阻止表单提交的默认行为 --> 
+          <input class="form-control mr-sm-2" type="text" placeholder="帖子名" id="titleCard" name="name" v-bind:value="name" /> 
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button> 
+         </form> 
+        </div> 
+       </nav> 
+      </div> 
+     </nav> 
+     <table class="table"> 
+      <thead class="text-center"> 
+       <tr> 
+        <th >标题</th> 
+        <th >作者</th> 
+        <th v-on:click="praiseSort"><a title="点击排序">收藏</a></th> 
+        <th >发帖时间</th> 
+        <th></th> 
+        <th>操作</th> 
+       </tr> 
+      </thead> 
+      <tbody class="text-center"> 
+       <!--  放置循环--> 
+       <tr v-for="card in pageInfo.list"> 
+        <td><a href="#">{{card.name}}</a></td> 
+        <td>{{card.uid}}</td> 
+        <td>{{card.praise}}</td> 
+        <td>{{card.pubDate | dateFrm}}</td> 
+        <td><input type="hidden" name="card.id" /></td> 
+        <td> 
+         <div> 
+          <a v-bind:href="'admin/delCard?id='+card.id" v-on:click="delconfirm(event)"><span>删除</span></a> 
+         </div> </td> 
+       </tr> 
+      </tbody> 
+     </table> 
+    </div> 
+   </div> 
+   <!-- 分页链接 --> 
+   <div class="card-footer text-muted"> 
+    <nav aria-label="Page navigation example"> 
+     <ul class="pagination"> 
+      <!-- 首页 --> 
+      <li class="disabled" v-if="pageInfo.isFirstPage"><a href="javascript:void(0)" class="page-link" v-on:click.prevent="onPageLinkClick">&laquo;</a></li> 
+      <li class="page-item" v-else="pageInfo.isFirstPage"><a v-bind:href="'admin/home?pageNum='+pageInfo.prePage" class="page-link" v-on:click.prevent="onPageLinkClick">&laquo;</a></li> 
+      <!-- 中间   最多显示8个链接 --> 
+      <li class="page-item" v-for="pi in pageInfo.navigatepageNums" v-bind:class="pi==pageInfo.pageNum?'page-item active' :'page-item'"> <a class="page-link" v-bind:href="'admin/home?pageNum='+pi" v-on:click.prevent="onPageLinkClick">{{pi}}</a> </li> 
+      <!-- 尾页  --> 
+      <li class="disabled" v-if="pageInfo.isLastPage"><a class="page-link" href="javascript:void(0)" v-on:click.prevent="onPageLinkClick">&raquo;</a></li> 
+      <li class="page-item" v-else="pageInfo.isLastPage"><a class="page-link" v-bind:href="'admin/home?pageNum='+pageInfo.nextPage" v-on:click.prevent="onPageLinkClick">&raquo;</a></li> 
+     </ul> 
+    </nav> 
+   </div> 
+  </div> 
+  <!--模态对话框  --> 
+  <div class="modal" tabindex="-1" role="dialog" id="delModal"> 
+   <div class="modal-dialog" role="document"> 
+    <div class="modal-content"> 
+     <div class="modal-header"> 
+      <h5 class="modal-title">删除</h5> 
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> 
+     </div> 
+     <div class="modal-body"> 
+      <p>你确定要删除吗?</p> 
+     </div> 
+     <div class="modal-footer"> 
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button> 
+      <button type="button" class="btn btn-primary" id="confirmed">确定</button> 
+     </div> 
+    </div> 
+   </div> 
+  </div> 
+  <!-- 尾部 --> 
+ <!--  <div class="row card"> 
+   <div class="col-md-12" th:replace="/front/common/bottom::bot"></div> 
+  </div>  -->
+  <!-- 尾部 --> 
+  <script type="text/javascript" src="resources/bower_components/jquery/dist/jquery.min.js"></script> 
+  <script type="text/javascript" src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
+  <!-- 插件moment -->
+  <script type="text/javascript" src="resources/bower_components/moment/min/moment.min.js">
+  </script>
+  <script type="text/javascript" th:inline="javascript">
+	
+
+    $(function(){
+        //模态对话框配置
+       $("#delModal").modal({
+    	   backdrop:'static',//防止对话框自动关闭
+    	   show:false//默认一加载就显示
+
+           })
+        });
+    //不能放在函数里面
+    function delconfirm(event){
+   //首先阻止默认行为
+    	  event.preventDefault();
+    	   //点击删除 我们点击的是图标  我要找到他的父亲 《a》 
+    	   var url = $(event.target).parent("a").attr("href");
+    	   //点击后让模态显示出来
+    	   $("#delModal").modal("show");
+    	 //给确认绑定一个一次性事件
+           $("#confirmed").one("click",function(){
+                  window.location.href=url;                               
+        	   })
+
+        };
+        //定义排序算法
+     function compare(property){
+	            			 return function(a, b) {
+	            			                var value1 = a[property];
+	            			                var value2 = b[property];
+	            			                return value2 - value1;//降序
+	            			            }
+	            			        };
+    var pageNum;
+    var app=new Vue({
+             el:"#app",
+             data:{
+                  pageInfo:{},
+                  name:"",
+                  praise:[],
+                  list:[]
+         },
+
+         methods:{
+                  getData:function(){
+                       axios.post("admin/home?"+$("#sortForm").serialize()).then(function(response){
+                                         //console.log("admin/home?"+$("#sortForm").serialize());
+                                     if(response.data){ 
+                                         app.pageInfo=response.data.pageInfo;//得到json数据pageInfo
+                                         pageNum=response.data.pageInfo.pageNum;//取得pageNum
+                                         app.name=response.data.name;
+                                         app.list=response.data.pageInfo.list;
+                                                                           
+                                         
+                                                       }
+                                         })
+              	                  },
+              	                onSubmit:function(){
+
+                                    app.getData();
+  	              	                },
+  	              	            onPageLinkClick:function(evt){
+  	              	              	            if($(evt.target).text()=="»"){
+  	  	              	              	             $("#sortForm input[name='pageNum']").val(pageNum+1);//val val val 
+    	              	            }else if($(evt.target).text()=="«"){
+    	              	              	            $("#sortForm input[name='pageNum']").val(pageNum-1);
+        	              	        }else{
+        	              	              	         $("#sortForm input[name='pageNum']").val($(evt.target).text());
+
+           	              	              	              	            }
+  	              	              	            app.getData();
+  	              	              	            }, 	              	              	           	              	              	            
+ 	              	              	            //对点赞数进行排序
+  	              	              	      praiseSort:function(){
+  	              	              	              	     app.list.sort(compare("praise"));
+  	              	              	              	     console.log(app.list.sort(compare("praise")));
+
+    	              	              	              	      }
+    	              	              	              
+  	              	              	     
+	  	              	  	              	       
+  	              	              	      
+  	              	                
+      			   },//注意一个函数结束不能少逗号 他妈的
+      			   //vue插件一定时间自定义时间的格式
+		      filters:{
+                       dateFrm:function(el){
+                                         return moment(el).format("YYYY-MM-DD");
+
+
+                                         }
+		    				      }
+		   
+  				    });
+	   
+  //这个定义的函数必须要自己调用才会执行
+	    app.getData();
+    
+    
+    
+	</script>  
+ </body>
+</html>

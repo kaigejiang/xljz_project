@@ -1,5 +1,6 @@
 package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
@@ -30,6 +31,6 @@ public interface CommentMapper {
 	})
 	List<Comment> findAllByCid(int id);
 
-	@Insert("insert into t_comment(uid,content,cid) values(#{uid},#{content},#{cid})")
-	int insert(int uid, String content, int cid);
+	@Insert("insert into t_comment(uid,content,cid,cdate) values(#{uid},#{content},#{cid},#{date})")
+	int insert(int uid, String content, int cid, Date date);
 }

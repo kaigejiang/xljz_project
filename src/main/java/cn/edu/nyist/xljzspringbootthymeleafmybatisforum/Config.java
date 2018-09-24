@@ -6,8 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.ui.context.ThemeSource;
+import org.springframework.ui.context.support.ResourceBundleThemeSource;
+import org.springframework.web.servlet.ThemeResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.theme.CookieThemeResolver;
+import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 
 import com.alibaba.druid.pool.DruidDataSource;
 
@@ -31,6 +37,26 @@ public class Config extends WebMvcConfigurerAdapter{
 		//将/WEB-INF/upload/下的资源释放出来，使其可以通过/upload/访问
 		registry.addResourceHandler("/upload/**").addResourceLocations("/WEB-INF/upload/");
 	}
+	//theme
+			@Bean(name="themeSource")
+			public ThemeSource getResourceBundleThemeSource() {	
+				ResourceBundleThemeSource rbts = new ResourceBundleThemeSource();
+				rbts.setBasenamePrefix("cn.edu.nyist.xljzspringbootthymeleafmybatisforum.theme.");//注意不要少"."
+				return rbts;
+			}
+			@Bean(name="themeResolver")
+			public ThemeResolver geThemeResolver() {
+				
+				CookieThemeResolver cookieThemeResolver = new CookieThemeResolver();
+				cookieThemeResolver.setDefaultThemeName("cerulean");
+				return cookieThemeResolver;
+			}
+			@Override
+			public void addInterceptors(InterceptorRegistry registry) {
+				
+				registry.addInterceptor(new ThemeChangeInterceptor());
+				
+			}
 
 
 }

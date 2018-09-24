@@ -1,5 +1,6 @@
 package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class CommentServiceImpl implements CommentService {
 		return commentMapper.findAllByCid(id);
 	}
 	@Override
-	public int insert(int uid, String content, int cid) {
+	public int insert(int uid, String content, int cid,Date date) {
 		
-		return commentMapper.insert(uid,content,cid);
+		return commentMapper.insert(uid,content,cid,date);
 	}
 
 	

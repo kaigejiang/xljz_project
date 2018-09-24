@@ -112,15 +112,16 @@
 			<div class="col-md-12">
 				<!-- 判断是否已经登录 -->
 				<div th:if="${session.user!=null}">
-					<form th:action="@{commentAdd}">
-						<input type="text" name="ccontent" class="col-md-11" /> <input
-							type="hidden" name="cuid" th:value="${session.user.id}">
-						<input type="hidden" name="ccid" th:value="${card.id}"> <input
+					<form action="commentAdd" v-on:submit.prevent="onCommentAdd" id="commentAdd">
+						<input type="text" name="ccontent" id="ccontent" class="col-md-11" /> <input
+							type="hidden" name="cuid" id="cuid" th:value="${session.user.id}">
+						<input type="hidden" name="ccid" id="ccid" th:value="${card.id}"> <input
 							type="submit" value="发表评论" />
 					</form>
 				</div>
 				<div th:unless="${session.user!=null}">
 					<!-- 没有登录弹出登录框 -->
+					<input type="text" class="col-md-11" /> 
 						<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary" data-toggle="modal"
 							data-target="#exampleModalCenter" style="background-color: white;border: none;color: #4D4D4D;margin-top: 3px">评论</button>
@@ -134,14 +135,13 @@
 				<div class="card-body" th:inline="text">
 					作者：[[${comment.user.name}]]
 					<hr />
-					[[${comment.content}]]
+					[[${comment.content}]]  <div th:if="${session.user!=null}"><a th:if="${session.user.id==comment.uid}" th:href="@{'commentDel?comid='+${comment.id}}">删除</a></div>
 					<hr />
 					<!-- 回复框 -->
 					<div th:if="${session.user!=null}">
 						<form action="replyAdd">
 							<input type="button" class="col-md-1" value="回复" />
 							<div id="replyContent" class="hiddenDiv" style="display: none">
-							<input type="button" class="col-md-2" value="收起回复" /> 
 							
 							<input type="text" name="rcontent" id="rcontent" class="col-md-11" />
 							<input type="hidden" name="ruid" id="ruid" th:value="${session.user.id}"> <input type="hidden"
@@ -259,13 +259,13 @@
 	</div>
 	<script type="text/javascript">
 	$(".col-md-1").click(function(){
-		$(this).hide();
-		$(this).next(".hiddenDiv").show();
-		});
-	$(".col-md-2").click(function(){
-		$(this).parent(".hiddenDiv").hide();
-		$(this).parent(".hiddenDiv").prev(".col-md-1").show();
-		});
+		if($(this).next(".hiddenDiv").is(":hidden")){		
+			$(this).next(".hiddenDiv").show();
+			}else{
+			$(this).next(".hiddenDiv").hide();
+				}
+		})
+	
 	$(".icon-thumbsup").click(function(){
 		$(this).addClass(".active")
 		});
@@ -286,17 +286,38 @@
 		});
 		
 	});
-	</script>
 
-	<script type="text/javascript">
 	$(function () {   
 	    /* 用于拖动div标签 */  
 	     $( "#exampleModalCenter" ).draggable();  
 	    /*  激活提示框 */  
 	     $('#identifier').tooltip(options)  
-	       
-	      
-	});  
+	       }); 
+	</script>
+
+	<script type="text/javascript">
+	 var commentAdd=new Vue({
+		  el: '#commentAdd',
+		    data: {
+		        //提供默认值
+		        url:""
+		    },
+		    methods: {
+		    	onCommentAdd:function(){
+		    		var formData=new FormData();
+					formData.append("ccontent",$("#ccontent").val());
+					formData.append("cuid",$("#cuid").val());
+					formData.append("ccid",$("#ccid").val());
+
+					 axios.post("commentAdd",formData).then(function(response){
+					    	commentAdd.url=response.data.url;
+					    	window.location.href=response.data.url;
+						    })
+			    	},
+			   
+			    }
+
+		 });
 	</script>
 </body>
 </html>

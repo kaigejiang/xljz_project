@@ -15,6 +15,7 @@
 		"bootstrap-datepicker": "1.6",
 		"uri-util": "1.1.0",
 		"vue": "2.5.17",
-		"axios": "0.18.0"
+		"axios": "0.18.0",
+		"moment":"2.22.2"
 	}
 }

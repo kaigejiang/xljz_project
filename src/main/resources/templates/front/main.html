@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+ <head> 
+  <meta charset="UTF-8" /> 
+  <title>主页面</title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
+  <base th:href="@{${#httpServletRequest.getScheme()}+'://'+${#httpServletRequest.getServerName()}+':'+${#httpServletRequest.getServerPort()}+'/'}" /> 
+  <link th:href="@{'resources/themess/'+${#themes.code('themeName')}+'/bootstrap.min.css'}" rel="stylesheet" type="text/css" /> 
+  <!-- 加上vue ajax --> 
+  <script type="text/javascript" src="resources/bower_components/vue/dist/vue.min.js"></script> 
+  <script type="text/javascript" src="resources/bower_components/axios/dist/axios.min.js"></script> 
+ </head> 
+ <body style="background-color: #F5F6F7;"> 
+ <div>
+  <div class="container-fluid" id="app" style="position: absolute;"> 
+   <div class="row card"> 
+    <div class="col-md-12 card"> 
+     <!--  顶部--> 
+     <nav class="navbar navbar-expand-lg navbar-light "> 
+      <div class="collapse navbar-collapse col-md-3" id="bs-example-navbar-collapse-1"> 
+      
+       <ul class="navbar-nav" id="colourChange" style="font-size: 15px;box-sizing: content-box;"> 
+        <li class="nav-item active"><a href="#" class="nav-link" title="人文论坛" target="_blank">论坛</a></li> 
+        <li class="nav-item active"><a href="" class="nav-link" title="聚焦" target="_blank">聚焦</a></li> 
+        <li class="nav-item active"><a href="" class="nav-link" title="热帖榜" target="_blank">热帖榜</a></li> 
+        <li class="nav-item active"><a href="" class="nav-link" title="人文论坛" target="_blank">论坛</a></li> 
+        <li class="nav-item active"><a href="" class="nav-link" title="人文论坛" target="_blank">论坛</a></li> 
+        
+       </ul> 
+      </div> 
+      <div class="collapse navbar-collapse col-md-5" id="bs-example-navbar-collapse-1"> 
+       <form class="form-inline" id="seachAll"> 
+        <input class="tracking-click my-2 my-sm-0" placeholder="文章 资源" type="text" /> 
+        <button class="tracking-click" type="submit"> Search</button> 
+       </form>
+       </div> 
+       <div>
+       <ul class="navbar-nav ml-md-auto"> 
+        <li class="nav-item active"><a class="nav-link" href="#">天气 <span class="sr-only">(current)</span> </a></li> 
+        <li class="nav-item active"><a  class="nav-link"> 切换主题： <select class="text-center" id="themeSel"> <option>cerulean</option> <option>cosmo</option> <option>cyborg</option> <option>darkly</option> <option>journal</option> <option>litera</option> <option>lux</option> </select> <span class="sr-only">(current)</span> </a></li> 
+        <li class="nav-item active"><a class="nav-link" href="#">登录 <span class="sr-only">(current)</span> </a></li> 
+        <li class="nav-item active"><a class="nav-link" href="#">注册<span class="sr-only">(current)</span></a></li> 
+       </ul> 
+      </div> 
+     </nav> 
+    </div> 
+   </div> 
+   <!-- 顶部 --> 
+   <!-- 中间 --> 
+   <div class="row"> 
+    <div class="col-md-12"> 
+     <div class="row">
+      <div class="col-md-1">
+      </div> 
+      <!-- 中左 --> 
+      
+      <div class="col-md-2 card navbar-light text-center">  
+       <ul style="margin-left: 25px;width:70%;border-style: solid;border-color:#FF8300;border-width:1px;list-style-type: none;border-style: solid;border-color: rgb(255, 131, 0);padding-top: 10px;padding-right: 10px;padding-left: 10px;margin-top: 30px;padding-bottom: 10px;"class="text-center">
+       <li class="nav-item active "><a href="#"  class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
+       
+       </ul>
+      </div> 
+      <!-- 正中 --> 
+      <div class="col-md-6 card" style="background-0color: white;"> 
+       <!-- 正中上 --> 
+       <div class="row card"> 
+        <div class="col-md-12"> 
+         <div class="carousel slide" id="carousel-205267"> 
+          <ol class="carousel-indicators"> 
+           <li data-slide-to="0" data-target="#carousel-205267"></li> 
+           <li data-slide-to="1" data-target="#carousel-205267"></li> 
+           <li data-slide-to="2" data-target="#carousel-205267" class="active"></li> 
+          </ol> 
+          <div class="carousel-inner"> 
+           <div class="carousel-item"> 
+            <img class="d-block w-100" alt="Carousel Bootstrap First" src="../../resources/img/photo2.jpg" style="height: 300px" /> 
+            <div class="carousel-caption"> 
+             <h4>First Thumbnail l abel</h4> 
+             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> 
+            </div> 
+           </div> 
+           <div class="carousel-item"> 
+            <img class="d-block w-100" alt="Carousel Bootstrap Second" src="../../resources/img/photo1.jpg" style="height: 300px" /> 
+            <div class="carousel-caption"> 
+             <h4>Second Thumbnail label</h4> 
+             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> 
+            </div> 
+           </div> 
+           <div class="carousel-item active"> 
+            <img class="d-block w-100" alt="Carousel Bootstrap Third" src="../../resources/img/photo3.jpg" style="height: 300px" /> 
+            <div class="carousel-caption"> 
+             <h4>Third Thumbnail label</h4> 
+             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> 
+            </div> 
+           </div> 
+          </div> 
+          <a class="carousel-control-prev" href="#carousel-205267" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> 
+          <a class="carousel-control-next" href="#carousel-205267" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a> 
+         </div> 
+        </div> 
+       </div> 
+       <!--  正中下--> 
+       <div class="row card"> 
+        <!-- 正中下导航栏 --> 
+        <nav class="navbar navbar-light bg-light"> 
+         <div> 
+          <form action="front/toHome" class="form-inline" id="seachName" v-on:click.prevent="onSubmit"> 
+           <!-- 加class="form-inline" 在一行 --> 
+           <div> 
+            <input name="pageNum" type="hidden" value="1" /> 
+            <input type="text" class="form-control mr-sm-2" name="name" placeholder="搜索资源" v-bind:value="name" /> 
+            <button type="button" class="btn btn-outline-success my-2 my-sm-0" value=""><span class="badge badge-light">搜索</span></button> 
+           </div> 
+          </form> 
+         </div> 
+        </nav> 
+        <div class="col-md-12"> 
+         <table class="table"> 
+          <thead> 
+           <tr> 
+            <th>标题</th> 
+            <th>作者</th> 
+            <th>收藏</th> 
+            <th>发布时间</th> 
+           </tr> 
+          </thead> 
+          <tbody> 
+           <!--  放置循环--> 
+           <tr v-for="card in pageInfo.list"> 
+            <th><a v-bind:href="'toCardContent?cid='+card.id">{{card.name}}</a></th> 
+            <th>{{card.uid}}</th>
+            <th>{{card.praise}}</th> 
+            <td>{{card.pubDate | dateFrm}}</td> 
+            <td><input type="hidden" name="card.id" /></td> 
+           </tr>
+          </tbody> 
+         </table> 
+        </div> 
+        <!-- 分页链接 --> 
+   <div class="card-footer text-muted"  style="float: right;"> 
+    <nav aria-label="Page navigation example"> 
+     <ul class="pagination"> 
+      <!-- 首页 --> 
+      <li class="disabled" v-if="pageInfo.isFirstPage"><a href="javascript:void(0)" class="page-link" v-on:click.prevent="onPageLinkClick">&laquo;</a></li> 
+      <li class="page-item" v-else="pageInfo.isFirstPage"><a v-bind:href="'front/home?pageNum='+pageInfo.prePage" class="page-link" v-on:click.prevent="onPageLinkClick">&laquo;</a></li> 
+      <!-- 中间   最多显示8个链接 --> 
+      <li class="page-item" v-for="pi in pageInfo.navigatepageNums" v-bind:class="pi==pageInfo.pageNum?'page-item active' :'page-item'"> <a class="page-link" v-bind:href="'front/home?pageNum='+pi" v-on:click.prevent="onPageLinkClick">{{pi}}</a> </li> 
+      <!-- 尾页  --> 
+      <li class="disabled" v-if="pageInfo.isLastPage"><a class="page-link" href="javascript:void(0)" v-on:click.prevent="onPageLinkClick">&raquo;</a></li> 
+      <li class="page-item" v-else="pageInfo.isLastPage"><a class="page-link" v-bind:href="'front/home?pageNum='+pageInfo.nextPage" v-on:click.prevent="onPageLinkClick">&raquo;</a></li> 
+     </ul> 
+    </nav> 
+   </div> 
+       </div> 
+      </div> 
+      <!-- 中右 --> 
+      <div class="col-md-2 card"> 
+       <h3>h3. Lorem ipsum dolor sit amet.</h3> 
+      </div> 
+       <div class="col-md-1 card"> 
+       </div>
+     </div> 
+    </div> 
+   </div> 
+   <!--  尾部--> 
+  <div class="row" style="height: 50px;background-color: #e5e5e5;line-height: 50px"  >
+			<div class="col-md-12">
+				<p class="text-center" style="height: 50px;">© 1999-2018 Alibaba.com. All rights reserved.</p>
+			</div>
+		</div>
+  </div> 
+  </div>
+  <script type="text/javascript" src="resources/bower_components/jquery/dist/jquery.min.js"></script> 
+  <script type="text/javascript" src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
+  <!-- 插件moment --> 
+  <script type="text/javascript" src="resources/bower_components/moment/min/moment.min.js">
+  </script> 
+  <script type="text/javascript" th:inline="javascript">
+  $(function(){
+     var theme=[[${#themes.code("themeName")}]];
+     $("#themeSel").val(theme);//点击的主题
+     $("#themeSel").change(function() {
+    			window.document.location.href ="front/toHome?theme="
+    							  + this.options[this.selectedIndex].value;
+    				});
+		//鼠标悬停事件
+		$("#colourChange a").bind({
+                'mouseover':function(){
+                    $(this).css("color","red");
+              	                },
+               'mouseout':function(){
+              	    $(this).css("color","#161717");
+                               }                
+          
+							})   
+	  });
+  
+    var pageNum;
+      var app=new Vue({
+           el:'#app',
+           data:{
+             pageInfo:{},
+             pageNum:'',
+             name:""},
+      	methods:{
+      			    //定义原始页面数据
+      			getData:function(){
+      			    	 axios.post("front/home?"+$("#seachName").serialize()).then(function(response){
+      			      		     if (response.data) {
+      			      		       app.pageInfo=response.data.pageInfo;
+      			      		       pageNum=response.data.pageInfo.pageNum;
+      			      		       app.name=response.data.name;
+      			                   
+      			                   
+      			      				                  }
+      			      				                    
+      			      											 });
+        			      			      	},
+        			      			      onSubmit:function(){
+        			        			      			      app.getData();
+
+        			      			    					 
+      			        			      			      },
+        			      			      onPageLinkClick:function(evt){
+        	  	              	              	            if($(evt.target).text()=="»"){
+        	  	  	              	              	             $("#seachName input[name='pageNum']").val(pageNum+1);//val val val 
+        	    	              	            }else if($(evt.target).text()=="«"){
+        	    	              	              	            $("#seachName input[name='pageNum']").val(pageNum-1);
+        	        	              	        }else{
+        	        	              	               	         $("#seachName input[name='pageNum']").val($(evt.target).text());
+
+        	           	              	              	              	            }
+        	  	              	              	            app.getData();
+        	  	              	              	            }
+      			      	
+		
+        			      	},
+        			      	//定义时间格式
+        			      	filters:{
+        			                          dateFrm:function(el){
+        			                                            return moment(el).format("YYYY-MM-DD");
+
+
+        			                                            }
+        			   		    				      }	 
+
+
+  				     });
+      //这个定义的函数必须要自己调用才会执行
+	     app.getData();
+  
+  </script>  
+ </body>
+</html>
