@@ -1,5 +1,6 @@
 package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
@@ -25,6 +26,6 @@ public interface ReplyMapper {
 	@Select("select * from t_reply where comid=#{id}")
 	List<Reply> findAllByComid(int id);
 
-	@Insert("insert into t_reply(uid,content,comid) values(#{uid},#{content},#{comid})")
-	int insert(int uid, String content, int comid);
+	@Insert("insert into t_reply(uid,content,comid,rdate) values(#{uid},#{content},#{comid},#{date})")
+	int insert(int uid, String content, int comid, Date date);
 }

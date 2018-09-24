@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>页面</title>
+</head>
+<body>
+<div class="card text-white bg-dark mb-3" th:fragment="userleft" style="max-width: 18rem;">
+				<div class="card-header text-center" style="color: tomato;font-weight: bold;">
+    				我的信息
+  				</div>
+				<div class="card-body text-center">
+					<a href="/front/getUserInfo" style="color: paleturquoise">基本信息</a>
+				</div>
+				<div class="card-body text-center">
+					<a href="/front/toUserCard" style="color: paleturquoise" >我的帖子</a>
+				</div>
+				<div class="card-body text-center">
+					<a href="/front/toUserCollection" style="color: paleturquoise">我的收藏</a>
+				</div>
+				<div class="card-body text-center">
+					<a href="/front/toUserComment" style="color: paleturquoise">我的评论</a>
+				</div>
+			</div>
+</body>
+</html>
