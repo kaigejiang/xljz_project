@@ -20,7 +20,8 @@ public class Card implements Serializable {
 	private int praise;//点赞数
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date pubDate;// 发布时间
-
+	private int tid;
+	
 	public Card() {
 		// TODO Auto-generated constructor stub
 	}
@@ -71,6 +72,16 @@ public class Card implements Serializable {
 
 	public void setPubDate(Date pubDate) {
 		this.pubDate = pubDate;
+	}
+
+	
+
+	public int getTid() {
+		return tid;
+	}
+
+	public void setTid(int tid) {
+		this.tid = tid;
 	}
 
 	@Override

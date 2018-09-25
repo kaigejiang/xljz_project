@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script type="text/javascript"
+	src="/resources/bower_components/jquery/dist/jquery.js">
+</script>
+<link
+	th:href="@{/resources/bower_components/bootstrap/dist/css/bootstrap.css}"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="/resources/bower_components/ckeditor5-build-decoupled-document/ckeditor.js">
+	</script>
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="input-group mb-3" style="width: 300px; margin-top: 16px;">
+		<div class="input-group-prepend">
+			<span class="input-group-text" id="inputGroup-sizing-default">标题</span>
+		</div>
+		<input id="biaoTi" type="text" class="form-control"
+			aria-label="Default" aria-describedby="inputGroup-sizing-default"
+			name="bt">
+	</div>
+	<select class="custom-select" style="margin-bottom: 16px;width: 200px">
+		<option selected>选择类型</option>
+		<option value="1">科学</option>
+		<option value="2">技术</option>
+		<option value="3">人文</option>
+		<option value="4">生活</option>
+	</select>
+	<div id="toolbar-container"></div>
+	<div id="editor"></div>
+	<button type="button" id="button">提交</button>
+	<script type="text/javascript" th:inline="javascript">
+	DecoupledEditor
+	.create( document.querySelector( '#editor' ) )
+	.then( editor => {
+	//加载图片适配器
+	editor.plugins.get('FileRepository').createUploadAdapter = (loader)=>{
+    return new UploadAdapter(loader);
+	 };
+    const toolbarContainer = document.querySelector( '#toolbar-container' );
+    toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+} )
+.catch( error => {
+    console.error( error );
+} );
+
+class UploadAdapter {
+    constructor(loader) {
+        this.loader = loader;
+    }
+    upload() {
+        return new Promise((resolve, reject) => {
+        const data = new FormData();
+        data.append('upload', this.loader.file);
+        data.append('allowSize', 1);//允许图片上传的大小/兆
+    });
+    }
+    abort() {
+    }
+}
+
+$(document).ready(function(){
+	  $("#button").click(function(){
+		var bt = $('#biaoTi').val();
+		var con = $("#editor").html();
+		var type = $(".custom-select").val();
+		if(bt==null||bt.trim()==''){
+			alert("标题不能为空");
+			} else if(type==null||type.trim()=='选择类型'){
+				alert("请选择类型");
+				}else
+		  if (con.length>4194304) {
+				alert("内容过大，请减小图片");}else{
+					$.post("/front/newCard",
+						    {
+						    	content:con,
+						    	bt:bt,
+						    	type:type
+						    },
+						    function(data,status){
+						    	//alert("数据：" + data + "\n状态：" + status);
+						    	if(data!=null){
+						    		window.location.href="/front/toUserCard";
+							    	}
+						    });
+					}
+	   
+	  });
+	});
+
+	/* $(function(){
+		if([[${msg}]]!=null){
+		alert([[${msg}]]);
+			}
+		}) */
+</script>
+</body>
+</html>

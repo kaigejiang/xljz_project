@@ -13,5 +13,7 @@ public interface FrontUserCardService {
 	void deleteByName(String cardName);
 	@Transactional(readOnly=true)
 	Card findCardByName(String cardName);
+	@Transactional
+	int save(Card card);
 
 }

@@ -25,5 +25,9 @@ public class FrontUserCardServiceImpl implements FrontUserCardService {
 	public Card findCardByName(String cardName) {
 		return cardMapper.findCardByName(cardName);
 	}
+	@Override
+	public int save(Card card) {
+		return cardMapper.save(card);
+	}
 
 }
