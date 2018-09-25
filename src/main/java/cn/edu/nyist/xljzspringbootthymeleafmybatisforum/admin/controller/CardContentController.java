@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -37,12 +39,18 @@ public class CardContentController {
 	private CollectionService collectionService;
 	@RequestMapping("/toCardContent")
 	//参数要通过主页面传参过来一个ID
-	public String toCard(Model model, @RequestParam(defaultValue="0") int uid,@RequestParam(defaultValue="1") int cid) {
+	public String toCard(Model model,HttpSession session,@RequestParam(defaultValue="1") int cid) {
 		//获得该帖子的全部
 		Card card=cardService.findById(cid);
 		User user=useService.findById(card.getUid());
 		List<Comment> comments=commentService.findAllByCid(card.getId());
 		//收藏
+		User user1=(User) session.getAttribute("user");
+		int uid=0;
+		if(user1!=null) {
+			uid=user1.getId();
+		}
+		System.out.println("uid////"+uid);
 		Collection collection= collectionService.findBy(uid,cid);
 		System.out.println(collection+"22222222222222");
 		//解析帖子内容
@@ -63,10 +71,10 @@ public class CardContentController {
 	public Map<String, Object> commentAdd(@RequestParam("cuid") int uid,@RequestParam("ccontent") String content,@RequestParam("ccid") int cid) {
 		Date date=new Date();
 		int ret=commentService.insert(uid,content,cid,date);
-		System.out.println(ret+"---------------------------------------");
+		
 		Map<String, Object> map=new HashMap<>();
 		if(ret>0) {
-			map.put("url", "/toCardContent?uid="+uid+"&cid="+cid);
+			map.put("url", "/toCardContent?cid="+cid);
 		}else {
 			map.put("url", "/err");
 		}
@@ -77,10 +85,10 @@ public class CardContentController {
 	public String replyAdd(@RequestParam("ruid") int uid,@RequestParam("rcontent") String content,@RequestParam("rcomid") int comid, @RequestParam("rcid") int cid) {
 		Date date=new Date();
 		int ret=replyService.insert(uid,content,comid,date);
-		System.out.println(ret+"---------------------------------------");
+	
 		
 		if(ret>0) {
-			return "redirect:/toCardContent?uid="+uid+"&cid="+cid;
+			return "redirect:/toCardContent?cid="+cid;
 		}else {
 		return "err";
 		}

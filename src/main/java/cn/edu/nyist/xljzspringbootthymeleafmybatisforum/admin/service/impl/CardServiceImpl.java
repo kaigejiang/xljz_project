@@ -42,6 +42,11 @@ public class CardServiceImpl implements CardService {
 		
 		return cardMapper.del(id);
 	}
+	@Override
+	public int updateCol(int i) {
+		
+		return cardMapper.updateCol(i);
+	}
 	
 
 }

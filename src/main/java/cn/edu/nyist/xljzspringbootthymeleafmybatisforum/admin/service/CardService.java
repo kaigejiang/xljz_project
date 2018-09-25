@@ -13,4 +13,6 @@ public interface CardService {
 	PageInfo<Card> findAll(String name, int pageNum);
     @Transactional
 	int delCardById(String id);
+    @Transactional
+	int  updateCol(int i);
 }

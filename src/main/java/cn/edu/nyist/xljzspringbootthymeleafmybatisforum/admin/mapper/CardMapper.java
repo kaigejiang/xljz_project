@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
 
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.common.model.Card;
 @Mapper
@@ -22,5 +23,7 @@ public interface CardMapper {
     //删除
     @Delete("delete from t_card where id=#{id}")
 	int del(String id);
+    @Update("update t_card set praise=#{i}")
+	int updateCol(int i);
 
 }
