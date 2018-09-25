@@ -27,4 +27,10 @@ public class ReplyServiceImpl implements ReplyService {
 		return replyMapper.insert(uid,content,comid,date);
 	}
 
+	@Override
+	public int delByComid(int comid) {
+		
+		return replyMapper.delByComid(comid);
+	}
+
 }

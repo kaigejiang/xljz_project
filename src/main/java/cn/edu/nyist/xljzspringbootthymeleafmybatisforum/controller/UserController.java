@@ -131,7 +131,7 @@ public class UserController {
 		}
 		// 存下来，以便后面根据us的值判断是否登录
 		session.setAttribute("user", user);
-		return "redirect:/home";
+		return "redirect:/admin/toHome";
 		
 	}
 	

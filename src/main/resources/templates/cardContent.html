@@ -89,12 +89,13 @@
 			<div th:unless="${session.user!=null}">
 				<!-- 没有登录弹出登录框 -->
 				<form>
-					<i class="icon iconfont icon-shoucang" id="icon-shoucang"></i> 
-				<!-- 	<input type="submit" value="收藏"> -->
+					<i class="icon iconfont icon-shoucang" id="icon-shoucang"></i>
+					<!-- 	<input type="submit" value="收藏"> -->
 					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#exampleModalCenter" style="background-color: white;border: none;color: #4D4D4D;margin-top: 3px">收藏</button>
-					
+						data-target="#exampleModalCenter"
+						style="background-color: white; border: none; color: #4D4D4D; margin-top: 3px">收藏</button>
+
 				</form>
 			</div>
 			<!-- 帖子的html -->
@@ -112,20 +113,23 @@
 			<div class="col-md-12">
 				<!-- 判断是否已经登录 -->
 				<div th:if="${session.user!=null}">
-					<form action="commentAdd" v-on:submit.prevent="onCommentAdd" id="commentAdd">
-						<input type="text" name="ccontent" id="ccontent" class="col-md-11" /> <input
-							type="hidden" name="cuid" id="cuid" th:value="${session.user.id}">
-						<input type="hidden" name="ccid" id="ccid" th:value="${card.id}"> <input
+					<form action="commentAdd" v-on:submit.prevent="onCommentAdd"
+						id="commentAdd">
+						<input type="text" name="ccontent" id="ccontent" class="col-md-11" />
+						<input type="hidden" name="cuid" id="cuid"
+							th:value="${session.user.id}"> <input type="hidden"
+							name="ccid" id="ccid" th:value="${card.id}"> <input
 							type="submit" value="发表评论" />
 					</form>
 				</div>
 				<div th:unless="${session.user!=null}">
 					<!-- 没有登录弹出登录框 -->
-					<input type="text" class="col-md-11" /> 
-						<!-- Button trigger modal -->
+					<input type="text" class="col-md-11" />
+					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#exampleModalCenter" style="background-color: white;border: none;color: #4D4D4D;margin-top: 3px">评论</button>
-					
+						data-target="#exampleModalCenter"
+						style="background-color: white; border: none; color: #4D4D4D; margin-top: 3px">评论</button>
+
 				</div>
 			</div>
 			<div class="card-body" th:if="${#lists.isEmpty(comments)}">暂无评论</div>
@@ -135,35 +139,42 @@
 				<div class="card-body" th:inline="text">
 					作者：[[${comment.user.name}]]
 					<hr />
-					[[${comment.content}]]  <div th:if="${session.user!=null}"><a th:if="${session.user.id==comment.uid}" th:href="@{'commentDel?comid='+${comment.id}}">删除</a></div>
+					[[${comment.content}]]
+					<div th:if="${session.user!=null}">
+						<a th:if="${session.user.id==comment.uid}"
+							th:href="@{'commentDel?comid='+${comment.id}}">删除</a>
+					</div>
 					<hr />
 					<!-- 回复框 -->
 					<div th:if="${session.user!=null}">
 						<form action="replyAdd">
 							<input type="button" class="col-md-1" value="回复" />
 							<div id="replyContent" class="hiddenDiv" style="display: none">
-							
-							<input type="text" name="rcontent" id="rcontent" class="col-md-11" />
-							<input type="hidden" name="ruid" id="ruid" th:value="${session.user.id}"> <input type="hidden"
-									name="rcomid" id="rcomid" th:value="${comment.id}"> <input
-									type="hidden" name="rcid" id="rcid" th:value="${card.id}">
-								<input type="submit" value="回复" />
+
+								<input type="text" name="rcontent" id="rcontent"
+									class="col-md-11" /> <input type="hidden" name="ruid"
+									id="ruid" th:value="${session.user.id}"> <input
+									type="hidden" name="rcomid" id="rcomid"
+									th:value="${comment.id}"> <input type="hidden"
+									name="rcid" id="rcid" th:value="${card.id}"> <input
+									type="submit" value="回复" />
 							</div>
 						</form>
 					</div>
 					<div th:unless="${session.user!=null}">
 						<!-- 没有登录弹出登录框 -->
-							<!-- Button trigger modal -->
-					<button type="button" class="btn btn-primary" data-toggle="modal"
-							data-target="#exampleModalCenter" style="background-color: white;border: none;color: #4D4D4D;margin-top: 3px">回复</button>
-					
+						<!-- Button trigger modal -->
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#exampleModalCenter"
+							style="background-color: white; border: none; color: #4D4D4D; margin-top: 3px">回复</button>
+
 					</div>
 					<!-- 折叠效果 -->
 					<a class="detailmain_a" href="javascript:void(0);"
 						id="detailmain_a"> <span id="view_details">展开回复></span><i
 						class="fa fa-angle-right"></i>
 					</a>
-					<div id="deal_info_box" class="deal_info_box" style="display:none">
+					<div id="deal_info_box" class="deal_info_box" style="display: none">
 						<div class="card-body text-right" th:inline="text"
 							th:each="reply:${comment.replys}">
 							<!-- 回复内容 -->
@@ -172,7 +183,7 @@
 							<hr />
 							[[${reply.content}]]
 						</div>
-						
+
 					</div>
 				</div>
 				<div class="col-md-12"></div>
@@ -180,82 +191,98 @@
 		</div>
 		<!-- 模态对话框 -->
 		<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalCenterTitle"
-							aria-hidden="true" data-backdrop="false">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<div class="modal-content">
-									<div class="modal-header"
-										style="background-color: rgb(73, 134, 208)">
-										<h5 class="modal-title" id="exampleModalCenterTitle">
-											<b style="font-style: inherit; color: white;">##社区</b>
-										</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<!-- 模态对话框内容 -->
-										<div class="container-fluid"
-											style="background-color: #F5F5F5;">
-											<div class="row">
-												<div class="col-md-12">
+			role="dialog" aria-labelledby="exampleModalCenterTitle"
+			aria-hidden="true" data-backdrop="false">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header"
+						style="background-color: rgb(73, 134, 208)">
+						<h5 class="modal-title" id="exampleModalCenterTitle">
+							<b style="font-style: inherit; color: white;">##社区</b>
+						</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<!-- 模态对话框内容 -->
+						<div class="container-fluid" style="background-color: #F5F5F5;">
+							<div class="row">
+								<div class="col-md-12">
 
-													<!-- 如果用户名或密码错了，给用户个提示  -->
-													<div class="alert alert-primary offset-md-2" role="alert" th:text="${msg}" style="background-color: #F5F5F5; border-color: #F5F5F5;"></div>
-													<form action="login" method="post">
-														<div class="form-group row offset-md-2" id="nameIcon">
+									<!-- 如果用户名或密码错了，给用户个提示  -->
+									<div class="alert alert-primary offset-md-2" role="alert"
+										th:text="${msg}"
+										style="background-color: #F5F5F5; border-color: #F5F5F5;"></div>
+									<form action="login" method="post">
+										<div class="form-group row offset-md-2" id="nameIcon">
 
-															<div class="col-sm-10">
-																<span class="icon-pencil"></span>
-																<!-- value="${param.name}",用户名回填 -->
-																	<span class="icon-user"></span> <input type="text"
-																	class="form-control" id="inputName" placeholder="用户名"
-																	name="name"
-																	th:value="${param.name!=null?param.name[0]:''}"
-																	required="required" style="padding-left: 30px" />
-															</div>
-														</div>
-														<div class="form-group row offset-md-2" id="pwdIcon">
-
-															<div class="col-sm-10">
-																<span class="icon-lock"></span> 
-																<input type="password" class="form-control"
-																	id="inputPassword3" placeholder="密码" name="pwd"
-																	required="required" style="padding-left: 35px" />
-															</div>
-														</div>
-														<!-- 记住我 -->
-
-
-														<!-- 这里把验证码删去了 -->
-														<div class="form-group row offset-md-2">
-															<div class="col-sm-10">
-																<button type="submit"
-																	class="btn btn-primary btn-lg btn-block"
-																	style="background-color: rgb(73, 134, 208)">登录</button>
-															</div>
-														</div>
-
-														<div class="form-group row offset-md-2">
-															<div class="col-sm-10" style="margin-top: 8px;">
-																<a href="/toReg">立即注册</a>
-															</div>
-														</div>
-
-
-													</form>
-												</div>
+											<div class="col-sm-10">
+												<span class="icon-pencil"></span>
+												<!-- value="${param.name}",用户名回填 -->
+												<span class="icon-user"></span> <input type="text"
+													class="form-control" id="inputName" placeholder="用户名"
+													name="name" th:value="${param.name!=null?param.name[0]:''}"
+													required="required" style="padding-left: 30px" />
 											</div>
 										</div>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"data-dismiss="modal">关闭</button>
-										
-									</div>
+										<div class="form-group row offset-md-2" id="pwdIcon">
+
+											<div class="col-sm-10">
+												<span class="icon-lock"></span> <input type="password"
+													class="form-control" id="inputPassword3" placeholder="密码"
+													name="pwd" required="required" style="padding-left: 35px" />
+											</div>
+
+										</div>
+										<div class="form-group row offset-md-2" id="vcodeIcon">
+
+											<div class="col-sm-10">
+												<span class="icon-lock"></span> <div class="col-sm-6">
+						
+							<!-- 验证码不需要提示功能，用autocomplete="off"来关闭，为on时打开 -->
+							<input type="text" class="form-control" id="inputVcode" placeholder="验证码" name="vcode" maxlength="4" autocomplete="off" required="required"/>
+						</div>
+						<div class="col-sm-4">
+							
+							<img title="点击更换图片" src="vcode.png" class="vcodeimg" /> <a class="vcodeimg">看不清，换一张</a> 
+						</div>
+													
+											</div>
+										</div>
+										<!-- 记住我 -->
+
+
+										<!-- 这里把验证码删去了 -->
+										<div class="form-group row offset-md-2">
+											<div class="col-sm-10">
+												<button type="submit"
+													class="btn btn-primary btn-lg btn-block"
+													style="background-color: rgb(73, 134, 208)">登录</button>
+											</div>
+										</div>
+
+										<div class="form-group row offset-md-2">
+											<div class="col-sm-10" style="margin-top: 8px;">
+												<a href="/toReg">立即注册</a>
+											</div>
+										</div>
+
+
+									</form>
 								</div>
 							</div>
 						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">关闭</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript">
 	$(".col-md-1").click(function(){
@@ -293,6 +320,13 @@
 	    /*  激活提示框 */  
 	     $('#identifier').tooltip(options)  
 	       }); 
+
+    $(function(){
+    	$(".col-sm-4 .vcodeimg").click(function() {
+			console.log("=====================");
+			$(".col-sm-4 .vcodeimg").attr("src", "vcode.png?v=" + Math.random());
+		});
+        })
 	</script>
 
 	<script type="text/javascript">

@@ -87,5 +87,15 @@ public class CardContentController {
 		
 	}
 	
+	@RequestMapping("commentDel")
+	public String commentDel(@RequestParam() int comid) {
+		Comment comment=commentService.findAllByComid(comid);
+		replyService.delByComid(comid);
+		int ret=commentService.delById(comid);
+		int cid=comment.getCid();
+		return "redirect:/toCardContent?"+"cid="+cid;
+		
+	}
+	
 }
 

@@ -3,7 +3,9 @@ package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.mapper;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Result;
@@ -28,4 +30,7 @@ public interface ReplyMapper {
 
 	@Insert("insert into t_reply(uid,content,comid,rdate) values(#{uid},#{content},#{comid},#{date})")
 	int insert(int uid, String content, int comid, Date date);
+	
+	@Delete("delete from t_reply where comid=#{comid}")
+	int delByComid(int comid);
 }

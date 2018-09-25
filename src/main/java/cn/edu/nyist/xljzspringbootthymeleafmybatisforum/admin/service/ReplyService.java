@@ -11,4 +11,6 @@ public interface ReplyService {
 
 	int insert(int uid, String content, int comid, Date date);
 
+	int delByComid(int comid);
+
 }

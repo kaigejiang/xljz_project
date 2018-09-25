@@ -3,6 +3,7 @@ package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.mapper;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.Mapper;
@@ -33,4 +34,10 @@ public interface CommentMapper {
 
 	@Insert("insert into t_comment(uid,content,cid,cdate) values(#{uid},#{content},#{cid},#{date})")
 	int insert(int uid, String content, int cid, Date date);
+
+	@Delete("delete from t_comment where id=#{id}")
+	int deleteById(int id);
+
+	@Select("select * from t_comment where id=#{comid}")
+	Comment findByComid(int comid);
 }

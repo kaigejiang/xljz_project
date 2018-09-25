@@ -25,6 +25,17 @@ public class CommentServiceImpl implements CommentService {
 		
 		return commentMapper.insert(uid,content,cid,date);
 	}
+	
+	@Override
+	public int delById(int comid) {
+		
+		return commentMapper.deleteById(comid);
+	}
+	
+	@Override
+	public Comment findAllByComid(int comid) {
+		return commentMapper.findByComid(comid);
+	}
 
 	
 }

@@ -13,4 +13,8 @@ public interface CommentService {
 
 	int insert(int uid, String content, int cid, Date date);
 
+	Comment findAllByComid(int comid);
+
+	int delById(int comid);
+
 }
