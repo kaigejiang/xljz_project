@@ -68,7 +68,7 @@ public class UserController {
 				
 				//注册
 				userService.addUser(user);
-				return "redirect:/home";
+				return "redirect:/toLogin";
 			}
 			else {
 				// 注册失败跳转到错误页面
@@ -131,18 +131,18 @@ public class UserController {
 		}
 		// 存下来，以便后面根据us的值判断是否登录
 		session.setAttribute("user", user);
-		return "redirect:/admin/toHome";
+		return "redirect:/front/toHome";
 		
 	}
 	
-	@RequestMapping("/home")
-	public String toHome() {
-		return "main";
-	}
+	//@RequestMapping("/home")
+	//public String toHome() {
+	//	return "main";
+	//}
 	
 	@RequestMapping("/exit")
 	public String xx() {
-		return "redirect:/home";
+		return "redirect:/front/toHome";
 	}
 	
 		
