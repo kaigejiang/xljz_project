@@ -71,7 +71,7 @@ public class CardContentController {
 	public Map<String, Object> commentAdd(@RequestParam("cuid") int uid,@RequestParam("ccontent") String content,@RequestParam("ccid") int cid) {
 		Date date=new Date();
 		int ret=commentService.insert(uid,content,cid,date);
-		System.out.println(ret+"---------------------------------------");
+		
 		Map<String, Object> map=new HashMap<>();
 		if(ret>0) {
 			map.put("url", "/toCardContent?cid="+cid);
@@ -85,7 +85,7 @@ public class CardContentController {
 	public String replyAdd(@RequestParam("ruid") int uid,@RequestParam("rcontent") String content,@RequestParam("rcomid") int comid, @RequestParam("rcid") int cid) {
 		Date date=new Date();
 		int ret=replyService.insert(uid,content,comid,date);
-		System.out.println(ret+"---------------------------------------");
+	
 		
 		if(ret>0) {
 			return "redirect:/toCardContent?cid="+cid;
