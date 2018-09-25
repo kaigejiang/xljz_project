@@ -5,17 +5,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.CardService;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.CollectionService;
 
 @Controller
 public class CollectionController {
 	@Autowired
 	private CollectionService collectionService;
+	@Autowired
+	private CardService cardService;
 	@RequestMapping("/collectionAdd")
 	public String collectAdd(@RequestParam int cid,@RequestParam int uid) {
 		int ret= collectionService.insert(uid, cid);
 		if(ret>0)
-		{return "redirect:/toCardContent?uid="+uid+"&cid="+cid;}
+		{
+			int col=cardService.findById(cid).getPraise();
+			cardService.updateCol(col+1);
+			return "redirect:/toCardContent?cid="+cid;
+			}
 		else
 			return "err";
 	}
@@ -24,7 +31,11 @@ public class CollectionController {
 	public String collectDel(@RequestParam int cid,@RequestParam int uid) {
 		int ret= collectionService.delete(uid, cid);
 		if(ret>0)
-		{return "redirect:/toCardContent?uid="+uid+"&cid="+cid;}
+		{
+			int col=cardService.findById(cid).getPraise();
+			cardService.updateCol(col-1);
+			return "redirect:/toCardContent?cid="+cid;
+			}
 		else
 			return "err";
 	}
