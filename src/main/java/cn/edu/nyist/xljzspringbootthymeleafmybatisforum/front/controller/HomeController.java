@@ -1,6 +1,7 @@
 package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.front.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,17 @@ public class HomeController {
 		@ResponseBody
 		public Map<String, Object> home(@RequestParam(defaultValue="",required=false)String name,
 			   @RequestParam(defaultValue="1",required=false) int pageNum
+			   
+			  
 			   ){//pageNum默认值是1
-			System.out.println("3333333333333333333333333333");
+			System.out.println("nnnnnnnnnnnnnnnnnnn"+pageNum);
+			
 			  PageInfo<Card> pageInfo=cardService.findAll(pageNum,name);
 			  System.out.println(pageInfo);
 			  Map<String, Object> map=new HashMap<>();
 			  map.put("pageInfo", pageInfo);
 			  map.put("name", name);
+			 
 			  return map;//返回json的数据
 			
 			

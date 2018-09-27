@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+        <div style="margin-top: 100px; margin-right: 50px;position: fixed;"
+		th:fragment="mainleft">
+		<div class="alert alert-primary" role="alert" style=" padding-left: 70px;margin-top: -85px;">
+			<a href="front/toCardScience?tid=1" style="padding-right: 50px">科学热门</a>
+		</div>
+		<div class="alert " role="alert" style="background-color: #B7D6EC">
+			<a href="front/toCardScience?tid=2">技术热门</a>
+		</div>
+		<div class="alert alert-success" role="alert">
+			<a href="front/toCardScience?tid=3">人文热门</a>
+		</div>
+		<div class="alert alert-danger" role="alert">
+			<a href="front/toCardScience?tid=4">生活热门</a>
+		</div>
+	</div>
+     
+
+</body>
+</html>

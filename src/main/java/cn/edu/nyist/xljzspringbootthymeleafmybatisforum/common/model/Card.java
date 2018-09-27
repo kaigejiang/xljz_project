@@ -21,6 +21,7 @@ public class Card implements Serializable {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date pubDate;// 发布时间
 	private int tid;
+	private User user;
 	private Type type;
 	
 	public Card() {
@@ -82,6 +83,14 @@ public class Card implements Serializable {
 
 	public void setTid(int tid) {
 		this.tid = tid;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Type getType() {

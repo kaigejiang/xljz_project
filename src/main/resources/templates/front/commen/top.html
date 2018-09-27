@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light " style="padding-top: 0px; padding-bottom: 0px;" th:fragment="top"> 
+       <div class="collapse navbar-collapse col-md-3" id="bs-example-navbar-collapse-1" > 
+        <ul class="navbar-nav" id="colourChange" style="font-size: 15px; box-sizing: content-box;"> 
+         <li class="card"><img style="width: 100px; height: 60px;" src="../../resources/img/photo5.jpg" /></li> 
+         <li class="nav-item active"><a href="front/toHome" class="nav-link " title="人文论坛" target="_blank" style="height: 60px; padding-top: 20px; padding-left: 50px; font-size: 17px;">首页</a></li> 
+         <li class="nav-item active"><a href="" class="nav-link" title="人文论坛" target="_blank" style="padding-top: 20px; padding-left: 50px; font-size: 17px;">论坛</a></li> 
+        </ul> 
+       </div> 
+       <nav class="navbar navbar-light bg-light"> 
+        <div> 
+         <form action="front/toHome" class="form-inline" id="seachName" v-on:click.prevent="onSubmit"> 
+          <!-- 加class="form-inline" 在一行 --> 
+          <div style="margin-left: 10px;"> 
+           <input name="pageNum" type="hidden" value="1" /> 
+           <input type="text" class="form-control mr-sm-2" name="name" placeholder="搜索资源" v-bind:value="name" /> 
+           <button type="button" class="btn btn-outline-success my-2 my-sm-0" value=""> <span class="badge badge-light">搜索</span> </button> 
+          </div> 
+         </form> 
+        </div> 
+       </nav> 
+       <div style="margin-left: 300px;"> 
+        <ul class="navbar-nav ml-md-auto"> 
+         <li class="nav-item active"><a class="nav-link"> 切换主题： <select class="text-center" id="themeSel"> <option>cerulean</option> <option>cosmo</option> <option>cyborg</option> <option>darkly</option> <option>journal</option> <option>litera</option> <option>lux</option> </select> <span class="sr-only">(current)</span> </a></li> 
+         <li class="nav-item active" id="front"><a class="nav-link" v-bind:href="'login'" v-on:click="loginDefault(event)"><span>登录</span></a></li> 
+         <li class="nav-item active"> </li>
+         <li class="nav-link" th:inline="text">欢迎<a href="front/toUserCard" title="点击进入个人主页" th:inline="text">[[${session.user.name}]]</a>登录 </li> 
+        </ul> 
+       </div> 
+      </nav> 
+     
+
+</body>
+</html>

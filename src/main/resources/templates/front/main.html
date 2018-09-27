@@ -9,283 +9,263 @@
   <!-- 加上vue ajax --> 
   <script type="text/javascript" src="resources/bower_components/vue/dist/vue.min.js"></script> 
   <script type="text/javascript" src="resources/bower_components/axios/dist/axios.min.js"></script> 
-  <link href="resources/style.css" rel="stylesheet" type="text/css"/>
- <style type="text/css">
-#pwdIcon span, #nameIcon span {
-	position: absolute;
-	left: 8%;
-	top: 10px;
-	color: #4D4D4D;
+  <style type="text/css">
+#cardname {
+	background-color: rgba(0, 0, 0, 0);
+	box-sizing: border-box;
+	color: rgb(51, 51, 51);
+	font-size: 18px;
+	font-weight: 700;
+	height: 27px;
+	line-height: 27px;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-bottom: 4px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: -7px;
+	text-align: left;
+	text-decoration-color: rgb(51, 51, 51);
+	text-size-adjust: 100%;
+	width: 483px;
+	word-wrap: break-word;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-</style>
+
+#cardcontent {
+	box-sizing: border-box;
+	color: rgb(153, 153, 153);
+	display: block;
+	font-family: -apple-system, "SF UI Text", Arial, "PingFang SC",
+		"Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei",
+		sans-serif;
+	font-size: 13px;
+	height: 48px;
+	line-height: 24px;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-bottom: 8px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	text-align: left;
+	text-size-adjust: 100%;
+	width: 483px;
+	word-wrap: break-word;
+	-webkit-margin-after: 8px;
+	-webkit-margin-before: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-margin-start: 0px;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#cardli {
+	border-bottom-color: rgb(240, 240, 240);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	box-sizing: border-box;
+	color: rgb(51, 51, 51);
+	display: list-item;
+	font-family: -apple-system, "SF UI Text", Arial, "PingFang SC",
+		"Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei",
+		sans-serif;
+	font-size: 17px;
+	height: 140px;
+	line-height: 20px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-bottom: 15px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	min-height: 140px;
+	padding-bottom: 20px;
+	padding-left: 0px;
+	padding-right: 2px;
+	padding-top: 15px;
+	position: relative;
+	text-align: left;
+	text-size-adjust: 100%;
+	width: 625px;
+	word-wrap: break-word;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#authorfront {
+	box-sizing: border-box;
+	color: rgb(51, 51, 51);
+	display: block;
+	font-size: 12px;
+	font-weight: 400;
+	height: 20px;
+	line-height: 20px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	padding-right: 0px;
+	text-align: left;
+	text-size-adjust: 100%;
+	width: 483px;
+	word-wrap: break-word;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#front {
+	border: 2px;
+	border-color: red;
+	border-radius: 30px;
+	border-top-color: rgba(236, 97, 73, 0.7);
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+}
+</style> 
  </head> 
- <body style="background-color: #F5F6F7;"> 
- <div>
-  <div class="container-fluid" id="app" style="position: absolute;"> 
-   <div class="row card"> 
-    <div class="col-md-12 card"> 
-     <!--  顶部--> 
-     <nav class="navbar navbar-expand-lg navbar-light "> 
-      <div class="collapse navbar-collapse col-md-3" id="bs-example-navbar-collapse-1"> 
-      
-       <ul class="navbar-nav" id="colourChange" style="font-size: 15px;box-sizing: content-box;"> 
-        <li class="nav-item active"><a href="#" class="nav-link" title="人文论坛" target="_blank">论坛</a></li> 
-        <li class="nav-item active"><a href="" class="nav-link" title="聚焦" target="_blank">聚焦</a></li> 
-        <li class="nav-item active"><a href="" class="nav-link" title="热帖榜" target="_blank">热帖榜</a></li> 
-        <li class="nav-item active"><a href="" class="nav-link" title="人文论坛" target="_blank">论坛</a></li> 
-        <li class="nav-item active"><a href="" class="nav-link" title="人文论坛" target="_blank">论坛</a></li> 
-        
-       </ul> 
-      </div> 
-      <div class="collapse navbar-collapse col-md-5" id="bs-example-navbar-collapse-1"> 
-       <form class="form-inline" id="seachAll"> 
-        <input class="tracking-click my-2 my-sm-0" placeholder="文章 资源" type="text" /> 
-        <button class="tracking-click" type="submit"> Search</button> 
-       </form>
-       </div> 
+ <body> 
+  <div> 
+   <a name="top"></a> 
+   <div class="container-fluid" id="app"> 
+    <div class="row card"> 
+     <div class="col-md-12 card" style="position: fixed; z-index: 1"> 
+      <!--  顶部--> 
        <div>
-       <ul class="navbar-nav ml-md-auto"> 
-        <li class="nav-item active"><a class="nav-link" href="#">天气 <span class="sr-only">(current)</span> </a></li> 
-        <li class="nav-item active"><a  class="nav-link"> 切换主题： <select class="text-center" id="themeSel"> <option>cerulean</option> <option>cosmo</option> <option>cyborg</option> <option>darkly</option> <option>journal</option> <option>litera</option> <option>lux</option> </select> <span class="sr-only">(current)</span> </a></li> 
-        <!-- 登录模态对话框 -->
-        <li class="nav-item active">
-        <!-- <a class="nav-link" href="#">登录 <span class="sr-only">(current)</span> </a> -->
-        	 <!-- 此处添加模态框 --> <!-- Button trigger modal -->
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" 
-						style="background-color:white;color: #4D4D4D;border:none;margin-top: 3px">登录</button>
-						<!-- Modal -->
-						<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalCenterTitle"
-							aria-hidden="true" data-backdrop="false">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<div class="modal-content">
-									<div class="modal-header"
-										style="background-color: rgb(73, 134, 208)">
-										<h5 class="modal-title" id="exampleModalCenterTitle">
-											<b style="font-style: inherit; color: white;">##社区</b>
-										</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<!-- 模态对话框内容 -->
-										<div class="container-fluid"
-											style="background-color: #F5F5F5;">
-											<div class="row">
-												<div class="col-md-12">
-
-													<!-- 如果用户名或密码错了，给用户个提示  -->
-													<div class="alert alert-primary offset-md-2" role="alert" th:text="${msg}" style="background-color: #F5F5F5; border-color: #F5F5F5;"></div>
-													<form action="login" method="post">
-														<div class="form-group row offset-md-2" id="nameIcon">
-
-															<div class="col-sm-10">
-																<span class="icon-pencil"></span>
-																<!-- value="${param.name}",用户名回填 -->
-																	<span class="icon-user"></span> <input type="text"
-																	class="form-control" id="inputName" placeholder="用户名"
-																	name="name"
-																	th:value="${param.name!=null?param.name[0]:''}"
-																	required="required" style="padding-left: 30px" />
-															</div>
-														</div>
-														<div class="form-group row offset-md-2" id="pwdIcon">
-
-															<div class="col-sm-10">
-																<span class="icon-lock"></span> 
-																<input type="password" class="form-control"
-																	id="inputPassword3" placeholder="密码" name="pwd"
-																	required="required" style="padding-left: 35px" />
-															</div>
-														</div>																										
-					<!-- vcode -->
-					<div class="form-group row offset-md-2">						
-						<div class="col-sm-6">						
-							<!-- 验证码不需要提示功能，用autocomplete="off"来关闭，为on时打开 -->
-							<input type="text" class="form-control" id="inputVcode" placeholder="验证码" name="vcode" maxlength="4" autocomplete="off" required="required"/>
-						</div>
-						<div class="col-sm-4">
-							
-							<img title="点击更换图片" src="vcode.png" class="vcodeimg" /> <a class="vcodeimg">看不清，换一张</a> 
-						</div>
-					</div>
-					
-														
-														<div class="form-group row offset-md-2">
-															<div class="col-sm-10">
-																<button type="submit"
-																	class="btn btn-primary btn-lg btn-block"
-																	style="background-color: rgb(73, 134, 208)">登录</button>
-															</div>
-														</div>
-
-														<div class="form-group row offset-md-2">
-															<div class="col-sm-10" style="margin-top: 8px;">
-																<a href="/toReg">立即注册</a>
-															</div>
-														</div>
-
-
-													</form>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-						</div>
-        
-        
-        </li> 
-        <li class="nav-item active"><a class="nav-link" href="/toReg">注册<span class="sr-only">(current)</span></a></li> 
-       </ul> 
-      </div> 
-     </nav> 
-    </div> 
-   </div> 
-   <!-- 顶部 --> 
-   <!-- 中间 --> 
-   <div class="row"> 
-    <div class="col-md-12"> 
-     <div class="row">
-      <div class="col-md-1">
-      </div> 
-      <!-- 中左 --> 
-      
-      <div class="col-md-2 card navbar-light text-center">  
-       <ul style="margin-left: 25px;width:70%;border-style: solid;border-color:#FF8300;border-width:1px;list-style-type: none;border-style: solid;border-color: rgb(255, 131, 0);padding-top: 10px;padding-right: 10px;padding-left: 10px;margin-top: 30px;padding-bottom: 10px;"class="text-center">
-       <li class="nav-item active "><a href="#"  class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       <li class="nav-item active"><a href="#" class="nav-link" target="_blank" style="text-decoration: none;color:#000000 ">选项控制栏</a><li>
-       
-       </ul>
-      </div> 
-      <!-- 正中 --> 
-      <div class="col-md-6 card" style="background-0color: white;"> 
-       <!-- 正中上 --> 
-       <div class="row card"> 
-        <div class="col-md-12"> 
-         <div class="carousel slide" id="carousel-205267"> 
-          <ol class="carousel-indicators"> 
-           <li data-slide-to="0" data-target="#carousel-205267"></li> 
-           <li data-slide-to="1" data-target="#carousel-205267"></li> 
-           <li data-slide-to="2" data-target="#carousel-205267" class="active"></li> 
-          </ol> 
-          <div class="carousel-inner"> 
-           <div class="carousel-item"> 
-            <img class="d-block w-100" alt="Carousel Bootstrap First" src="../../resources/img/photo2.jpg" style="height: 300px" /> 
-            <div class="carousel-caption"> 
-             <h4>First Thumbnail l abel</h4> 
-             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> 
-            </div> 
-           </div> 
-           <div class="carousel-item"> 
-            <img class="d-block w-100" alt="Carousel Bootstrap Second" src="../../resources/img/photo1.jpg" style="height: 300px" /> 
-            <div class="carousel-caption"> 
-             <h4>Second Thumbnail label</h4> 
-             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> 
-            </div> 
-           </div> 
-           <div class="carousel-item active"> 
-            <img class="d-block w-100" alt="Carousel Bootstrap Third" src="../../resources/img/photo3.jpg" style="height: 300px" /> 
-            <div class="carousel-caption"> 
-             <h4>Third Thumbnail label</h4> 
-             <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p> 
-            </div> 
-           </div> 
-          </div> 
-          <a class="carousel-control-prev" href="#carousel-205267" data-slide="prev"><span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span></a> 
-          <a class="carousel-control-next" href="#carousel-205267" data-slide="next"><span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span></a> 
-         </div> 
-        </div> 
-       </div> 
-       <!--  正中下--> 
-       <div class="row card"> 
-        <!-- 正中下导航栏 --> 
-        <nav class="navbar navbar-light bg-light"> 
-         <div> 
-          <form action="front/toHome" class="form-inline" id="seachName" v-on:click.prevent="onSubmit"> 
-           <!-- 加class="form-inline" 在一行 --> 
-           <div> 
-            <input name="pageNum" type="hidden" value="1" /> 
-            <input type="text" class="form-control mr-sm-2" name="name" placeholder="搜索资源" v-bind:value="name" /> 
-            <button type="button" class="btn btn-outline-success my-2 my-sm-0" value=""><span class="badge badge-light">搜索</span></button> 
-           </div> 
-          </form> 
-         </div> 
-        </nav> 
-        <div class="col-md-12"> 
-         <table class="table"> 
-          <thead> 
-           <tr> 
-            <th>标题</th> 
-            <th>作者</th> 
-            <th>收藏</th> 
-            <th>发布时间</th> 
-           </tr> 
-          </thead> 
-          <tbody> 
-           <!--  放置循环--> 
-           <tr v-for="card in pageInfo.list"> 
-            <th><a v-bind:href="'toCardContent?cid='+card.id">{{card.name}}</a></th> 
-            <th>{{card.uid}}</th>
-            <th>{{card.praise}}</th> 
-            <td>{{card.pubDate | dateFrm}}</td> 
-            <td><input type="hidden" name="card.id" /></td> 
-           </tr>
-          </tbody> 
-         </table> 
-        </div> 
-        <!-- 分页链接 --> 
-   <div class="card-footer text-muted"  style="float: right;"> 
-    <nav aria-label="Page navigation example"> 
-     <ul class="pagination"> 
-      <!-- 首页 --> 
-      <li class="disabled" v-if="pageInfo.isFirstPage"><a href="javascript:void(0)" class="page-link" v-on:click.prevent="onPageLinkClick">&laquo;</a></li> 
-      <li class="page-item" v-else="pageInfo.isFirstPage"><a v-bind:href="'front/home?pageNum='+pageInfo.prePage" class="page-link" v-on:click.prevent="onPageLinkClick">&laquo;</a></li> 
-      <!-- 中间   最多显示8个链接 --> 
-      <li class="page-item" v-for="pi in pageInfo.navigatepageNums" v-bind:class="pi==pageInfo.pageNum?'page-item active' :'page-item'"> <a class="page-link" v-bind:href="'front/home?pageNum='+pi" v-on:click.prevent="onPageLinkClick">{{pi}}</a> </li> 
-      <!-- 尾页  --> 
-      <li class="disabled" v-if="pageInfo.isLastPage"><a class="page-link" href="javascript:void(0)" v-on:click.prevent="onPageLinkClick">&raquo;</a></li> 
-      <li class="page-item" v-else="pageInfo.isLastPage"><a class="page-link" v-bind:href="'front/home?pageNum='+pageInfo.nextPage" v-on:click.prevent="onPageLinkClick">&raquo;</a></li> 
-     </ul> 
-    </nav> 
-   </div> 
-       </div> 
-      </div> 
-      <!-- 中右 --> 
-      <div class="col-md-2 card"> 
-       <h3>h3. Lorem ipsum dolor sit amet.</h3> 
-      </div> 
-       <div class="col-md-1 card"> 
+       <div th:replace="front/commen/top::top"></div>
        </div>
+    <!-- 顶部 --> 
+    </div> 
+    </div>
+    <!-- 中间 --> 
+    <div class="row" style="margin-top: 20px;"> 
+    
+     <div class="col-md-12"> 
+      <div class="row" style="margin-top: 50px"> 
+       <div class="col-md-1"></div> 
+       <!-- 中左 --> 
+      <div class="col-md-2 navbar-light text-center">
+      <div th:replace="front/commen/mainleft::mainleft"></div> 
+      </div>
+       <!-- 正中 --> 
+       <div class="col-md-6" style="background-0color: white;"> 
+        <!-- 正中上 --> 
+        <div th:replace="front/commen/lunbo::lunbo"></div>
+        <!--  正中下--> 
+        <div class="row" style="margin-top: 30px"> 					
+         <ul id="getMore"> 
+          <li v-for="card in pageInfo.list" style="width: 623px; height: 104px; list-style-type: none;" id="cardli"> 
+           <div> 
+            <div> 
+             <div> 
+              <a v-bind:href="'toCardContent?cid='+card.id" id="cardname">{{card.name}}</a> 
+             </div> 
+             <div id="cardcontent">
+              {{card.content}}
+             </div> 
+             <div id="authorfront"> 
+              <span><a href="front/toUserCard">{{card.user.name}}</a></span> 
+              <span style="margin-left: 20px">{{card.praise}}</span> 
+             </div> 
+            </div> 
+            <span> <img v-bind:src="'/upload/'+card.user.photo" style="width: 123px; height: 98px; float: right;" /> </span> 
+           </div> </li> 
+         </ul> 
+         <div class="alert alert-dark" role="alert" id="loadmore" v-on:click="onPageLinkClick" style="width: 400px; padding-top: 5px; padding-bottom: 0px; line-height: 10px;; margin-left: 125px; margin-top: 20px;"> 
+          <p style="height: 10px" class="text-center">加载更多</p>  
+         </div> 
+         <!-- 用点击显示更多 底层还是分页  --> 
+         <!-- 	分页链接
+								<div class="card-footer text-muted" style="float: right;">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination">
+											首页
+											<li class="disabled" v-if="pageInfo.isFirstPage"><a
+												href="javascript:void(0)" class="page-link"
+												v-on:click.prevent="onPageLinkClick">&laquo;</a></li>
+											<li class="page-item" v-else="pageInfo.isFirstPage"><a
+												v-bind:href="'front/home?pageNum='+pageInfo.prePage"
+												class="page-link" v-on:click.prevent="onPageLinkClick">&laquo;</a></li>
+											中间   最多显示8个链接
+											<li class="page-item" v-for="pi in pageInfo.navigatepageNums"
+												v-bind:class="pi==pageInfo.pageNum?'page-item active' :'page-item'">
+												<a class="page-link" v-bind:href="'front/home?pageNum='+pi"
+												v-on:click.prevent="onPageLinkClick">{{pi}}</a>
+											</li>
+											尾页 
+											<li class="disabled" v-if="pageInfo.isLastPage"><a
+												class="page-link" href="javascript:void(0)"
+												v-on:click.prevent="onPageLinkClick">&raquo;</a></li>
+											<li class="page-item" v-else="pageInfo.isLastPage"><a
+												class="page-link"
+												v-bind:href="'front/home?pageNum='+pageInfo.nextPage"
+												v-on:click.prevent="onPageLinkClick">&raquo;</a></li>
+										</ul>
+
+									</nav>
+								</div> --> 
+        </div> 
+       </div> 
+ 
+       <!-- 中右 --> 
+       <div class="col-md-2"></div> 
+       <div class="col-md-1"></div> 
+      </div> 
+     </div> 
+    </div> 
+    <!--  尾部--> 
+    <div class="row" style="height: 50px; background-color: #e5e5e5; line-height: 50px"> 
+     <div class="col-md-12"> 
+      <p class="text-center" style="height: 50px;">&copy; 1999-2018 Alibaba.com. All rights reserved.</p> 
      </div> 
     </div> 
    </div> 
-   <!--  尾部--> 
-  <div class="row" style="height: 50px;background-color: #e5e5e5;line-height: 50px"  >
-			<div class="col-md-12">
-				<p class="text-center" style="height: 50px;">© 1999-2018 Alibaba.com. All rights reserved.</p>
-			</div>
-		</div>
+   <!-- 模态对话框 --> 
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+    <div class="modal-dialog" role="document"> 
+     <div class="modal-content"> 
+      <div class="modal-header"> 
+       <h5 class="modal-title text-center" id="exampleModalLabel">登录</h5> 
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> 
+      </div> 
+      <div class="alert alert-primary offset-md-2" role="alert" th:text="${msg}" style="background-color: #F5F5F5; border-color: #F5F5F5;"></div> 
+      <form action="login" method="post" id="loginForm"> 
+       <div class="form-group row offset-md-2" id="nameIcon"> 
+        <div class="col-sm-10"> 
+         <!-- value="${param.name}",用户名回填 --> 
+         <span class="icon-user"></span> 
+         <input type="text" class="form-control" id="inputName" placeholder="用户名" name="name" th:value="${param.name!=null?param.name[0]:''}" required="required" style="padding-left: 35px" /> 
+        </div> 
+       </div> 
+       <div class="form-group row offset-md-2" id="pwdIcon"> 
+        <div class="col-sm-10"> 
+         <span class="icon-lock"></span> 
+         <input type="password" class="form-control" id="inputPassword3" placeholder="密码" name="pwd" required="required" style="padding-left: 30px" /> 
+        </div> 
+       </div> 
+       <!-- vcode --> 
+       <div class="form-group row offset-md-2"> 
+        <div class="col-sm-6"> 
+         <!-- 验证码不需要提示功能，用autocomplete="off"来关闭，为on时打开 --> 
+         <input type="text" class="form-control" id="inputVcode" placeholder="验证码" name="vcode" maxlength="4" autocomplete="off" required="required" /> 
+        </div> 
+        <div class="col-sm-4"> 
+         <img title="点击更换图片" src="vcode.png" class="vcodeimg" /> 
+         <a class="vcodeimg">看不清，换一张</a> 
+        </div> 
+       </div> 
+       <div class="form-group row offset-md-2"> 
+        <div class="col-sm-10"> 
+         <button type="submit" class="btn btn-primary btn-lg btn-block" style="background-color: rgb(73, 134, 208)">登录</button> 
+        </div> 
+       </div> 
+       <div class="form-group row offset-md-2"> 
+        <div class="col-sm-4" style="margin-top: 8px"> 
+         <a href="/toReg">立即注册</a> 
+        </div> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
   </div> 
-  </div>
   <script type="text/javascript" src="resources/bower_components/jquery/dist/jquery.min.js"></script> 
   <script type="text/javascript" src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> 
   <!-- 插件moment --> 
@@ -308,26 +288,76 @@
               	    $(this).css("color","#161717");
                                }                
           
-							})   
+							});
+		//模态对话框配置
+		$("#exampleModal").modal({
+              //配置属性
+			backdrop:'static',//防止对话框自动关闭
+    	   show:false//默认一加载就显示
+			});
+		//点击换图片事件
+		$(".vcodeimg").click(function(){
+           $(".vcodeimg").attr("src","vcode.png?t="+Math.random());
+			});
+         //
+       
+		
+
+      
+		
 	  });
+      //取消超级链接的默认行为
+     function loginDefault(event){
+         //要让模态对话框显示出来
+         $("#exampleModal").modal('show');
+       event.preventDefault();//取消超级链接的默认行为
+      /*  var url=$(event.target).parent('a').attr("href");//获取点击事件的url
+       //给点击登录绑定一次性的事件
+       $("#confirmed").one('click',function(){
+           console.log(window.location.href=url);
+           window.location.href=url;
+           }); */
+       
+       
+         }
   
     var pageNum;
+    var pageInfoH;
       var app=new Vue({
            el:'#app',
            data:{
              pageInfo:{},
              pageNum:'',
-             name:""},
+             name:"",
+             author:{}
+           },
       	methods:{
       			    //定义原始页面数据
       			getData:function(){
       			    	 axios.post("front/home?"+$("#seachName").serialize()).then(function(response){
-      			      		     if (response.data) {
-      			      		       app.pageInfo=response.data.pageInfo;
-      			      		       pageNum=response.data.pageInfo.pageNum;
-      			      		       app.name=response.data.name;
-      			                   
-      			                   
+      			    		pageNum=response.data.pageInfo.pageNum;
+      			    		app.name=response.data.name;
+			      		    app.author=response.data.author;     
+  			      		     if (response.data) {
+          			      		     if(pageNum==1){
+      			      		       		app.pageInfo=response.data.pageInfo; 
+              			      		     }else{
+              			      		   pageInfoH = response.data.pageInfo;
+          			      		    	var html = '';
+
+          			      		    	for(var i = 0;i<pageInfoH.size;i++){
+          			      		    	html += '<li id="cardli" style="border:1px ;width: 623px; height: 104px; list-style-type: none;"><div><div>'+
+											'<div><a href="toCardContent?cid='+pageInfoH.list[i].id+'" id="cardname">'+pageInfoH.list[i].name+'</a></div>'+
+											'<div id="cardcontent">'+pageInfoH.list[i].content+'</div>'+
+											'<div><span>'+pageInfoH.list[i].user.name+'</span>'+
+											'<span style="margin-left: 20px">'+pageInfoH.list[i].praise+'</span></div></div>'+
+											'<div><img src="/upload/'+pageInfoH.list[i].user.photo+'"style="width: 123px; height: 98px;float: right;"></div>'+
+											'</div></li>'
+              			      		    	}
+										$('#getMore li:last-child').after(html);//在最后的li后面插入html代码
+										
+                  			      		     }
+      			      		                     
       			      				                  }
       			      				                    
       			      											 });
@@ -338,52 +368,30 @@
         			      			    					 
       			        			      			      },
         			      			      onPageLinkClick:function(evt){
-        	  	              	              	            if($(evt.target).text()=="»"){
+        	  	              	              	           /*  if($(evt.target).text()=="»"){ */
         	  	  	              	              	             $("#seachName input[name='pageNum']").val(pageNum+1);//val val val 
-        	    	              	            }else if($(evt.target).text()=="«"){
+        	  	  	              	              	             $(evt.target).html("loading......");
+        	  	  	              	              	     /* } else if($(evt.target).text()=="«"){
         	    	              	              	            $("#seachName input[name='pageNum']").val(pageNum-1);
         	        	              	        }else{
         	        	              	               	         $("#seachName input[name='pageNum']").val($(evt.target).text());
-
-        	           	              	              	              	            }
+        	           	              	              	              	            } */
         	  	              	              	            app.getData();
-        	  	              	              	            }
-      			      	
-		
+        	  	              	              	            },
+        	  	              	              	      submitHat:function(){
+                                                         $("#two input[name='tid']").val(2);
+            	  	              	              	      }
         			      	},
         			      	//定义时间格式
         			      	filters:{
         			                          dateFrm:function(el){
         			                                            return moment(el).format("YYYY-MM-DD");
-
-
         			                                            }
         			   		    				      }	 
-
-
   				     });
       //这个定义的函数必须要自己调用才会执行
 	     app.getData();
   
-  </script> 
-  <script type="text/javascript">
-  	//模态对话框
-	/*  页面加载完执行此函数 */  
-	$(function () {   
-	    /* 用于拖动div标签 */
-	     $( "#exampleModalCenter" ).draggable();  
-	    /*  激活提示框 */  
-	     $('#identifier').tooltip(options)  	      	      
-	});  
-
-	$(function() {
-		$(".col-sm-4 .vcodeimg").click(function() {
-			$(".col-sm-4 .vcodeimg").attr("src", "vcode.png?v=" + Math.random());
-		});
-	});
-	</script>
-  
-  
-   
+  </script>  
  </body>
 </html>

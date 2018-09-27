@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>主页面</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<base
+	th:href="@{${#httpServletRequest.getScheme()}+'://'+${#httpServletRequest.getServerName()}+':'+${#httpServletRequest.getServerPort()}+'/'}" />
+<link
+	th:href="@{'resources/themess/'+${#themes.code('themeName')}+'/bootstrap.min.css'}"
+	rel="stylesheet" type="text/css" />
+<!-- 加上vue ajax -->
+<script type="text/javascript"
+	src="resources/bower_components/vue/dist/vue.min.js"></script>
+<script type="text/javascript"
+	src="resources/bower_components/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<div>
+		<div class="container-fluid" id="app" style="position: absolute;">
+			<div class="row card">
+				<div class="col-md-12 card">
+					<!--  顶部-->
+					<div>
+						<div th:replace="front/commen/top::top"></div>
+					</div>
+				</div>
+			</div>
+			<!-- 顶部 -->
+			<!-- 中间 -->
+			<div class="row" style="margin-top: 20px;">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-1"></div>
+						<!-- 中左 -->
+						<div class="col-md-2 navbar-light text-center">
+							<div style="margin-top: 100px; margin-right: 50px;"
+								th:fragment="mainleft">
+								<div class="alert alert-primary" role="alert">
+									<a >科学热门</a>
+								</div>
+								<div class="alert " role="alert"
+									style="background-color: #B7D6EC">
+									<a >技术热门</a>
+								</div>
+								<div class="alert alert-success" role="alert">
+									<a >人文热门</a>
+								</div>
+								<div class="alert alert-danger" role="alert">
+									<a>生活热门</a>
+								</div>
+							</div>
+						</div>
+						<!-- 正中 -->
+						<div class="col-md-6" style="background-0color: white;">
+							<!-- 正中上 -->
+							 <div th:replace="front/commen/lunbo::lunbo"></div>
+							<!--  正中下-->
+							<div class="row" style="margin-top: 30px">
+								<!-- 正中下导航栏 -->
+								<nav class="navbar navbar-light bg-light">
+									<div>
+										<form action="front/toHome" class="form-inline" id="seachName"
+											v-on:click.prevent="onSubmit">
+											<!-- 加class="form-inline" 在一行 -->
+											<div style="margin-left: 10px;">
+											 <input type="hidden" name="tid" th:value="${tid}">
+												<input name="pageNum" type="hidden" value="1" /> <input
+													type="text" class="form-control mr-sm-2" name="name"
+													placeholder="搜索资源" v-bind:value="name" />
+												<button type="button"
+													class="btn btn-outline-success my-2 my-sm-0" value="">
+													<span class="badge badge-light">搜索</span>
+												</button>
+											</div>
+										</form>
+									</div>
+								</nav>
+								<div class="col-md-12">
+									<table class="table">
+										<thead>
+											<tr>
+												<th>标题</th>
+												<th>作者</th>
+												<th>收藏</th>
+												<th style="display: none">书籍类型</th>
+												<th>发布时间</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!--  放置循环-->
+											<tr v-for="card in pageInfo.list">
+												<th><a v-bind:href="'toCardContent?cid='+card.id">{{card.name}}</a></th>
+												<th>{{card.user.name}}</th>
+												<th>{{card.praise}}</th>
+												<th style="display: none">{{card.type.name}}</th>
+												<td>{{card.pubDate | dateFrm}}</td>
+												<td><input type="hidden" name="card.id" /></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<!-- 分页链接 -->
+								<div class="card-footer text-muted" style="float: right;">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination">
+											<!-- 首页 -->
+											<li class="disabled" v-if="pageInfo.isFirstPage"><a
+												href="javascript:void(0)" class="page-link"
+												v-on:click.prevent="onPageLinkClick">&laquo;</a></li>
+											<li class="page-item" v-else="pageInfo.isFirstPage"><a
+												v-bind:href="'front/home?pageNum='+pageInfo.prePage"
+												class="page-link" v-on:click.prevent="onPageLinkClick">&laquo;</a></li>
+											<!-- 中间   最多显示8个链接 -->
+											<li class="page-item" v-for="pi in pageInfo.navigatepageNums"
+												v-bind:class="pi==pageInfo.pageNum?'page-item active' :'page-item'">
+												<a class="page-link" v-bind:href="'front/home?pageNum='+pi"
+												v-on:click.prevent="onPageLinkClick">{{pi}}</a>
+											</li>
+											<!-- 尾页  -->
+											<li class="disabled" v-if="pageInfo.isLastPage"><a
+												class="page-link" href="javascript:void(0)"
+												v-on:click.prevent="onPageLinkClick">&raquo;</a></li>
+											<li class="page-item" v-else="pageInfo.isLastPage"><a
+												class="page-link"
+												v-bind:href="'front/home?pageNum='+pageInfo.nextPage"
+												v-on:click.prevent="onPageLinkClick">&raquo;</a></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+						<!-- 中右 -->
+						<div class="col-md-2"></div>
+						<div class="col-md-1"></div>
+					</div>
+				</div>
+			</div>
+			<!--  尾部-->
+			<div class="row"
+				style="height: 50px; background-color: #e5e5e5; line-height: 50px">
+				<div class="col-md-12">
+					<p class="text-center" style="height: 50px;">&copy; 1999-2018
+						Alibaba.com. All rights reserved.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript"
+		src="resources/bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- 插件moment -->
+	<script type="text/javascript"
+		src="resources/bower_components/moment/min/moment.min.js">
+  </script>
+	<script type="text/javascript" th:inline="javascript">
+  $(function(){
+     var theme=[[${#themes.code("themeName")}]];
+     $("#themeSel").val(theme);//点击的主题
+     $("#themeSel").change(function() {
+    			window.document.location.href ="front/toHome?theme="
+    							  + this.options[this.selectedIndex].value;
+    				});
+		//鼠标悬停事件
+		$("#colourChange a").bind({
+                'mouseover':function(){
+                    $(this).css("color","red");
+              	                },
+               'mouseout':function(){
+              	    $(this).css("color","#161717");
+                               }                
+          
+							});
+
+		
+	  });
+  
+    var pageNum;
+      var app=new Vue({
+           el:'#app',
+           data:{
+             pageInfo:{},
+             pageNum:'',
+             name:"",
+             author:{}
+             
+           },
+      	methods:{
+      			    //定义原始页面数据
+      			getData:function(){
+      			    	 axios.post("front/cardScience?"+$("#seachName").serialize()).then(function(response){
+      			      		     if (response.data) {
+      			      		       app.pageInfo=response.data.pageInfo;
+      			      		       pageNum=response.data.pageInfo.pageNum;
+      			      		       app.name=response.data.name;
+      			      		       app.author=response.data.author;
+      			      		              
+      			                   
+      			      				                  }
+      			      				                    
+      			      											 });
+        			      			      	},
+        			      			      onSubmit:function(){
+        			        			      			      app.getData();
+
+        			      			    					 
+      			        			      			      },
+        			      			      onPageLinkClick:function(evt){
+        	  	              	              	            if($(evt.target).text()=="»"){
+        	  	  	              	              	             $("#seachName input[name='pageNum']").val(pageNum+1);//val val val 
+        	    	              	            }else if($(evt.target).text()=="«"){
+        	    	              	              	            $("#seachName input[name='pageNum']").val(pageNum-1);
+        	        	              	        }else{
+        	        	              	               	         $("#seachName input[name='pageNum']").val($(evt.target).text());
+
+        	           	              	              	              	            }
+        	  	              	              	            app.getData();
+        	  	              	              	            }
+      			        			      			
+       	  	              	              	      
+
+        	  	              	              	        
+      			      	
+		
+        			      	},
+        			      	//定义时间格式
+        			      	filters:{
+        			                          dateFrm:function(el){
+        			                                            return moment(el).format("YYYY-MM-DD");
+
+
+        			                                            }
+        			   		    				      }	 
+
+
+  				     });
+      //这个定义的函数必须要自己调用才会执行
+	     app.getData();
+  
+  </script>
+</body>
+</html>
