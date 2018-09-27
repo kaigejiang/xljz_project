@@ -21,9 +21,9 @@ public class Card implements Serializable {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date pubDate;// 发布时间
 	private int tid;
+	private Type type;
 	
 	public Card() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {
@@ -82,6 +82,14 @@ public class Card implements Serializable {
 
 	public void setTid(int tid) {
 		this.tid = tid;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 	@Override
