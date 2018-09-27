@@ -52,11 +52,9 @@ public class CardContentController {
 		}
 		System.out.println("uid////"+uid);
 		Collection collection= collectionService.findBy(uid,cid);
-		System.out.println(collection+"22222222222222");
 		//解析帖子内容
 		//String docName=card.getContent();
-		String docName="poi.docx";
-		String outPutName=docName.substring(0, docName.lastIndexOf("."))+".html";
+		String outPutName=card.getContent();
 		
 	
 		model.addAttribute("outPut", outPutName);
@@ -99,11 +97,10 @@ public class CardContentController {
 	public String commentDel(@RequestParam() int comid) {
 		Comment comment=commentService.findAllByComid(comid);
 		replyService.delByComid(comid);
-		int ret=commentService.delById(comid);
+		commentService.delById(comid);
 		int cid=comment.getCid();
 		return "redirect:/toCardContent?"+"cid="+cid;
 		
 	}
-	
 }
 

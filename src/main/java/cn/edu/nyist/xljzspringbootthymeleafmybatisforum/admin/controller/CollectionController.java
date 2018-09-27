@@ -20,7 +20,7 @@ public class CollectionController {
 		if(ret>0)
 		{
 			int col=cardService.findById(cid).getPraise();
-			cardService.updateCol(col+1);
+			cardService.updateCol(col+1,cid);
 			return "redirect:/toCardContent?cid="+cid;
 			}
 		else
@@ -33,7 +33,7 @@ public class CollectionController {
 		if(ret>0)
 		{
 			int col=cardService.findById(cid).getPraise();
-			cardService.updateCol(col-1);
+			cardService.updateCol(col-1,cid);
 			return "redirect:/toCardContent?cid="+cid;
 			}
 		else

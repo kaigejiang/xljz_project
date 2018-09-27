@@ -14,5 +14,7 @@ public interface CardService {
     @Transactional
 	int delCardById(String id);
     @Transactional
-	int  updateCol(int i);
+	int  updateCol(int i, int cid);
+    @Transactional
+	public int updateById(int cid, String bt, String content);
 }
