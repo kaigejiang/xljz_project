@@ -45,11 +45,6 @@ public class FrontUserCardController {
 	@ResponseBody
 	public Map<String, Object> userCard(HttpSession session,
 			@RequestParam(defaultValue = "1", required = false) int pageNo) {
-		// 给session添加user，后面要替换
-		User user1 = new User();
-		user1.setId(1);
-		session.setAttribute("user", user1);
-
 		// 获取user
 		User user = (User) session.getAttribute("user");
 		// 分页
