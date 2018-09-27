@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script type="text/javascript"
+	src="/resources/bower_components/jquery/dist/jquery.js">
+</script>
+<link
+	th:href="@{/resources/bower_components/bootstrap/dist/css/bootstrap.css}"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="/resources/bower_components/ckeditor5-build-decoupled-document/ckeditor.js">
+	</script>
+
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="app">
+		<div class="input-group mb-3" style="width: 300px; margin-top: 16px;">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="inputGroup-sizing-default">标题</span>
+			</div>
+			<input id="biaoTi" type="text" class="form-control"
+				aria-label="Default" aria-describedby="inputGroup-sizing-default"
+				name="bt" th:value="${card.name}">
+				
+		</div>
+	
+		<input type="hidden" id="card_id" th:value="${card.id}">
+		
+		<div id="toolbar-container"></div>
+		
+		<div style="display: none">[[${content}]] </div>
+		<div id="editor" th:inline="text" >[[${content}]]</div>
+		<button type="button" id="button">提交</button>
+	</div>
+<script type="text/javascript" th:inline="javascript">
+	DecoupledEditor
+	.create( document.querySelector( '#editor' ) )
+	.then( editor => {
+	//加载图片适配器
+	editor.plugins.get('FileRepository').createUploadAdapter = (loader)=>{
+    return new UploadAdapter(loader);
+	 };
+    const toolbarContainer = document.querySelector( '#toolbar-container' );
+    toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+} )
+.catch( error => {
+    console.error( error );
+} );
+
+class UploadAdapter {
+    constructor(loader) {
+        this.loader = loader;
+    }
+    upload() {
+        return new Promise((resolve, reject) => {
+        const data = new FormData();
+        data.append('upload', this.loader.file);
+        data.append('allowSize', 1);//允许图片上传的大小/兆
+    });
+    }
+    abort() {
+    }
+}
+
+$(document).ready(function(){
+	  $("#button").click(function(){
+		var bt = $('#biaoTi').val();
+		var con = $("#editor").html();
+		
+		var cid=$("#card_id").val();
+		if(bt==null||bt.trim()==''){
+			alert("标题不能为空");
+			} else
+		  if (con.length>4194304) {
+				alert("内容过大，请减小图片");}else{
+					$.post("/front/editCard",
+						    {
+						    	content:con,
+						    	bt:bt,
+						    	
+						    	cid:cid
+						    },
+						    function(data,status){
+						    	//alert("数据：" + data + "\n状态：" + status);
+						    	if(data!=null){
+						    		window.location.href="/front/toUserCard";
+							    	}
+						    });
+					}
+	   
+	  });
+	});
+
+	/* $(function(){
+		if([[${msg}]]!=null){
+		alert([[${msg}]]);
+			}
+		}) */
+</script>
+
+</body>
+</html>
