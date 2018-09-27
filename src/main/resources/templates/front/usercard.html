@@ -32,7 +32,8 @@
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item" v-for="card in pageInfo.list" style="background-color: #343a40">
 						<div style="display: inline; color: greenyellow; font-weight: bold;">{{card.name}}
-							<img alt="" src="/resources/userimage/edit.svg" style="width: 18px;text-align: right;margin-left: 16px" >
+							<img alt="" src="/resources/userimage/edit.svg" style="width: 18px;text-align: right;margin-left: 16px" onclick="toEditCard(event)" >
+							<input type="hidden" v-bind:value="card.id">
 							<img id="img1" alt="" src="/resources/userimage/delete.svg" style="width: 18px;text-align: right;margin-left: 16px" onclick="delConfirm(event)">
 						</div>
 						<div style="color: gray; text-align: right; font-size: 13px;">点赞：{{card.praise}}</div>
@@ -128,7 +129,13 @@
 	        	axios.post("/front/carddelete?cardId="+cardId).then(function(response) {
 	            app.getData();
 	            }).catch(function(error) {});
-	        }
+	        },
+	        onEditClick:function(id){
+				axios.post("/front/updateCard?cid="+id).then(function(response) {
+					window.location.href=response.data.url;
+		            }).catch(function(error) {});
+				 
+		    },
 	    }
 	});
 	app.getData();
@@ -154,6 +161,12 @@
 		$("#delDlg").modal('hide');
 		});
 		}
+
+		function toEditCard(event){
+			var id=$(event.target).next().val();
+			app.onEditClick(id);
+			}
+		
 </script>
 </body>
 </html>

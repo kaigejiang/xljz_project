@@ -23,7 +23,9 @@ public interface CardMapper {
     //删除
     @Delete("delete from t_card where id=#{id}")
 	int del(String id);
-    @Update("update t_card set praise=#{i}")
-	int updateCol(int i);
+    @Update("update t_card set praise=#{i} where id=#{cid}")
+	int updateCol(int i,int cid);
+    @Update("update t_card set name=#{bt},content=#{content} where id=#{cid}")
+	int updateById(int cid, String bt, String content);
 
 }

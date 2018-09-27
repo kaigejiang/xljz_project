@@ -6,10 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class SplitTest {
-public static void main(String[] args) {
+public class Html2StringUtil {
+public static String H2S(String fileName) {
 	String filePath = System.getProperty("user.dir")
-			+ "\\src\\main\\webapp\\WEB-INF\\upload\\word\\word\\cdf890ee-463c-4c0b-b8fa-9f46e7bd83c4.html";
+			+ "\\src\\main\\webapp\\WEB-INF\\upload\\word\\word\\"+fileName;
 	File file = new File(filePath);
 	InputStream input = null;
 	try {
@@ -39,7 +39,7 @@ public static void main(String[] args) {
 		startIndex=val.indexOf(start)+ start.length();
 		endIndex=val.indexOf(end);
 	}
+	return body;
+}
 
-	System.out.println(body);
-	}
 }
