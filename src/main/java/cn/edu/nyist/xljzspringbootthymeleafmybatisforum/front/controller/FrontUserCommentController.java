@@ -35,11 +35,6 @@ public class FrontUserCommentController {
 	@ResponseBody
 	public Map<String, Object> userComment(HttpSession session,
 			@RequestParam(defaultValue = "1", required = false) int pageNo) {
-		// 给session添加user，后面要替换
-		User user1 = new User();
-		user1.setId(1);
-		session.setAttribute("user", user1);
-
 		// 获取user
 		User user = (User) session.getAttribute("user");
 		// 分页
@@ -56,8 +51,8 @@ public class FrontUserCommentController {
 	
 	@RequestMapping("/commentDelete")
 	@ResponseBody
-	private Map<String, Object> deleteCard(@RequestParam String commentName) {
-		Comment comment = frontUserCommentService.findCommentByName(commentName);
+	private Map<String, Object> deleteCard(@RequestParam int commentId) {
+		Comment comment = frontUserCommentService.findCommentById(commentId);
 		try {
 			frontUserReplyService.deleteByCid(comment.getId());
 			frontUserCommentService.deleteById(comment.getId());

@@ -122,8 +122,8 @@
 	            }
 	            app.getData();
 	        },
-	        onDeleteClick: function(name) {
-	        	axios.post("/front/commentDelete?commentName="+name).then(function(response) {
+	        onDeleteClick: function(commenId) {
+	        	axios.post("/front/commentDelete?commentId="+commenId).then(function(response) {
 	            app.getData();
 	            }).catch(function(error) {});
 	        }
@@ -142,12 +142,13 @@
 		//该函数不能放置$(function(){})内部，如果放置进去了它就是局部变量了，删除链接点击时候就无法找到
 		//同时不用担心它放置位置，因为当你能点击时候只要页面已加载完毕
 		function delConfirm(event) {
-		var name = $(event.target).parent().text().trim();
+		var indexLi = $(event.target).parent().parent().index();
+		var commenId = app._data.pageInfo.list[indexLi].id;
 		//显示模态对话框
 		$('#delDlg').modal('show');
 		//给确认框绑定一次性事件
 		$("#delDlg button.btn_ok ").one("click", function () {
-		app.onDeleteClick(name);
+		app.onDeleteClick(commenId);
 		$("#delDlg").modal('hide');
 		});
 		}

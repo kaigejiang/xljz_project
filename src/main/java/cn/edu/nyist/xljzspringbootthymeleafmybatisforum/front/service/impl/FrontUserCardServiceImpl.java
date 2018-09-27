@@ -17,17 +17,17 @@ public class FrontUserCardServiceImpl implements FrontUserCardService {
 		return cardMapper.findCard(id);
 	}
 	@Override
-	public void deleteByName(String cardName) {
-		System.out.println(cardName);
-		cardMapper.deleteByName(cardName);
-	}
-	@Override
-	public Card findCardByName(String cardName) {
-		return cardMapper.findCardByName(cardName);
-	}
-	@Override
 	public int save(Card card) {
 		return cardMapper.save(card);
+	}
+	@Override
+	public Card findCardById(Integer cardId) {
+		return cardMapper.findCardById(cardId);
+	}
+	@Override
+	public void deleteById(Integer cardId) {
+		cardMapper.deleteById(cardId);
+		
 	}
 
 }

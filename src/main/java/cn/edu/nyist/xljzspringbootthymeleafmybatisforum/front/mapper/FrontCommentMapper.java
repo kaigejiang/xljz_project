@@ -24,5 +24,7 @@ public interface FrontCommentMapper {
 
 	@Delete("delete from t_comment where id=#{id}")
 	int deleteById(int id);
+	@Select("select * from t_comment where id=#{commentId}")
+	Comment findById(int commentId);
 
 }

@@ -65,8 +65,8 @@ public class FrontUserCardController {
 	}
 	@RequestMapping("/carddelete")
 	@ResponseBody
-	private Map<String, Object> deleteCard(@RequestParam String cardName) {
-		Card card = frontUserCardService.findCardByName(cardName);
+	private Map<String, Object> deleteCard(@RequestParam Integer cardId) {
+		Card card = frontUserCardService.findCardById(cardId);
 		List<Comment> comments = frontUserCommentService.findAllCommentByCId(card.getId());
 		try {
 			frontUserCollectionService.deleteByCid(card.getId());
@@ -74,7 +74,7 @@ public class FrontUserCardController {
 				frontUserReplyService.deleteByCid(comment.getId());
 			}
 			frontUserCommentService.deleteByCid(card.getId());
-			frontUserCardService.deleteByName(cardName);
+			frontUserCardService.deleteById(cardId);
 		} catch (Exception e) {
 			System.out.println("删除失败");
 			e.printStackTrace();

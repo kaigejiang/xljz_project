@@ -35,11 +35,6 @@ public class FrontUserCollectionController {
 	@ResponseBody
 	public Map<String, Object> userCollection(HttpSession session,
 			@RequestParam(defaultValue = "1", required = false) int pageNo) {
-		// 给session添加user，后面要替换
-		User user1 = new User();
-		user1.setId(1);
-		session.setAttribute("user", user1);
-
 		// 获取user
 		User user = (User) session.getAttribute("user");
 		// 分页
@@ -55,8 +50,8 @@ public class FrontUserCollectionController {
 	
 	@RequestMapping("/collectionDelete")
 	@ResponseBody
-	private Map<String, Object> deleteCard(@RequestParam String collectionName) {
-		Card card = frontUserCardService.findCardByName(collectionName);
+	private Map<String, Object> deleteCard(@RequestParam Integer collectionId) {
+		Card card = frontUserCardService.findCardById(collectionId);
 		try {
 			frontUsercollectionService.deleteByCid(card.getId());
 		} catch (Exception e) {

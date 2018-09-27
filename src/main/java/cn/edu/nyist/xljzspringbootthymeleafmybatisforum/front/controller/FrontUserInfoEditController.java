@@ -51,6 +51,8 @@ public String editUser(@ModelAttribute User user,Model model,@RequestParam Multi
 		if (photoPath!=null) {
 			PhotoUtil.delFile(photoPath);
 		}
+		User user2 = frontUserInfoSerive.findUserById(user.getId());
+		session.setAttribute("user", user2);
 		return "redirect:/front/getUserInfo";
 	} else {
 		return "redirect:/front/getUserInfo";

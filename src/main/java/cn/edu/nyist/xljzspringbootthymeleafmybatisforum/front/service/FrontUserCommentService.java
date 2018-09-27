@@ -18,7 +18,9 @@ public interface FrontUserCommentService {
 
 	@Transactional(readOnly = true)
 	Comment findCommentByName(String commentName);
-
+	@Transactional
 	int deleteById(int id);
+	@Transactional(readOnly = true)
+	Comment findCommentById(int commentId);
 
 }

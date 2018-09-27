@@ -10,10 +10,10 @@ public interface FrontUserCardService {
 	@Transactional(readOnly=true)
 	List<Card> findAllCardById(int id);
 	@Transactional
-	void deleteByName(String cardName);
-	@Transactional(readOnly=true)
-	Card findCardByName(String cardName);
-	@Transactional
 	int save(Card card);
+	@Transactional(readOnly=true)
+	Card findCardById(Integer cardId);
+	@Transactional
+	void deleteById(Integer cardId);
 
 }

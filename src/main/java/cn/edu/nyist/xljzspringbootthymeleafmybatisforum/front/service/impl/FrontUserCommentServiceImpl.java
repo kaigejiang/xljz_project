@@ -32,5 +32,9 @@ public class FrontUserCommentServiceImpl implements FrontUserCommentService{
 	public int deleteById(int id) {
 		return commentMapper.deleteById(id);
 	}
+	@Override
+	public Comment findCommentById(int commentId) {
+		return commentMapper.findById(commentId);
+	}
 
 }
