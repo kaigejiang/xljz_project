@@ -15,6 +15,7 @@
 	position: fixed;
 	left: 50%;
 	top: 50%;
+	background-color: rgba(63,62,60,0.7);
 }
 #pwdIcon span,#nameIcon span{
 position:absolute;
@@ -40,6 +41,7 @@ background-size: 100% 100%;
 background-repeat: no-repeat;
 background-attachment: fixed;
 }
+.col-sm-2.col-form-label{padding-left: 40px;}
 </style>
 </head>
 <body>
@@ -47,7 +49,7 @@ background-attachment: fixed;
 <div>
 <div class="headimg">
 	<img src="resources/img/lg.jpg"/>
-<img src="resources/img/22.png"/>
+	<img src="resources/img/22.png"/>
 </div>
 	<ul class="nav justify-content-end">
   		<li class="nav-item"><a class="nav-link" href="/toLogin" style="color: #4D4D4D;margin-right: -20px">登录</a></li>
@@ -58,15 +60,15 @@ background-attachment: fixed;
 </div>
 
 	
-	<div class="container-fluid w-50" style="background-color:#F5F5F5;">
+	<div class="container-fluid w-50">
 		<div class="row">
 		
 			<div class="col-md-12">
 
 				<!-- 如果用户名或密码错了，给用户个提示  -->
-				<div class="alert alert-primary" role="alert" th:text="${msg}" style="background-color: #F5F5F5; border-color:#F5F5F5;"></div>
+				<div class="alert alert-primary" role="alert" th:text="${msg}" style="background-color: rgba(63,62,60,0.0); border-color:rgba(63,62,60,0.0);"></div>
 				<!-- email -->
-				<form action="sendEmail" method="post" enctype="multipart/form-data" target="rfFrame">
+				<form action="sendEmail" method="post" enctype="multipart/form-data" target="rfFrame" >
 							<!-- target="rfFrame" -->					
 					<div class="form-group row">								
 							<label for="inputEmail" class="col-sm-2 col-form-label">邮箱</label>
@@ -92,11 +94,10 @@ background-attachment: fixed;
 					</div>
 					<!-- name -->
 					<div class="form-group row " id="nameIcon">
-						<label for="inputName" class="col-sm-2 col-form-label" >用户名</label>
+						<label for="inputName" class="col-sm-2 col-form-label">用户名</label>
 						<div class="col-sm-10">
 							<!-- value="${param.name}",用户名回填 -->
 							<span class="icon-user"></span>
-							<span class="icon-pencil"></span>
 							<input  type="text" class="form-control" id="inputName" placeholder="用户名" name="name" v-bind:value="name" required="required" style="padding-left: 35px"/>
 						</div>
 					</div>
@@ -167,17 +168,9 @@ background-attachment: fixed;
 					"margin-left":-$(".container-fluid.w-50").width()/2+"px"
 				
 				});
-			
-
 		});
-
 	
-		
-
-		
 	</script>
 	
-
-
 </body>
 </html>

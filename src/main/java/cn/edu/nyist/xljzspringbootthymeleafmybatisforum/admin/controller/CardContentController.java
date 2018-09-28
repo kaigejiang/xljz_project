@@ -1,18 +1,26 @@
 package cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.itextpdf.text.DocumentException;
 
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.CardService;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.CollectionService;
@@ -101,5 +109,21 @@ public class CardContentController {
 		return "redirect:/toCardContent?"+"cid="+cid;
 		
 	}
+	
+	@RequestMapping("/cardDown")
+	public void pdfDown(@RequestParam() int carid,HttpServletRequest request,HttpServletResponse response) throws DocumentException, IOException {
+		Card comment=cardService.findById(carid);
+		//1、 下载文件名
+		String f=new String(comment.getContent().getBytes("iso-8859-1"),"utf-8");
+		System.out.println("-------------"+f);
+		//2、 不要亲⾃输出， 只要你设置好即可
+		response.setHeader("Content-Type", request.getServletContext().getMimeType(f));
+		response.setHeader("Content-Disposition","attachment;filename=\""+f+"\";filename*=utf-8''"+URLEncoder.encode(f, "utf-8"));		
+		//3、 完成消息体
+		FileUtils.copyFile(new File(request.getServletContext().getRealPath("WEB-INF/upload/word/word/"+f)),response.getOutputStream());				
+		//return "redirect:/toCardContent?"+"cid="+carid;
+		
+	}
+
 }
 

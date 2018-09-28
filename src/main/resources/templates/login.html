@@ -9,11 +9,13 @@
 <link href="resources/style.css" rel="stylesheet" type="text/css"/>
 
 <style type="text/css">
-.container-fluid.w-50 {
+.container-fluid.w-50{
 	position: fixed;
 	left: 50%;
 	top: 50%;
+	background-color: rgba(63,62,60,0.0);
 }
+
 body{
 	background-image: url("resources/img/bacg2.jpg");
 	background-size: 100% 100%;
@@ -48,12 +50,12 @@ position:absolute;
 	
 </div>
 
-	<div class="container-fluid w-50" style="background-color:#F5F5F5;">
+	<div class="container-fluid w-50">
 		<div class="row">
 			<div class="col-md-12">
 
 				<!-- 如果用户名或密码错了，给用户个提示  -->
-				<div class="alert alert-primary offset-md-2" role="alert" th:text="${msg}" style="background-color:#F5F5F5; border-color:#F5F5F5;"></div>
+				<div class="alert alert-primary offset-md-2" role="alert" th:text="${msg}" style="background-color: rgba(63,62,60,0.0); border-color:rgba(63,62,60,0.0);"></div>
 				<form action="login" method="post" id="loginForm">
 					<div class="form-group row offset-md-2" id="nameIcon">
 						<div class="col-sm-10">	
@@ -92,14 +94,11 @@ position:absolute;
 
 					<div class="form-group row offset-md-2">
 						<div class="col-sm-4" style="margin-top: 8px">
-							<a href="/toReg">立即注册</a>
+							<a href="/toReg"><span style="color: #FFFFFF">立即注册</span></a>
 							
 						</div>
 					</div>
-					
-					
-
-
+	
 				</form>
 			</div>
 		</div>
@@ -127,7 +126,6 @@ position:absolute;
 	//保证和位置无关
 	$(function() {
 		$(".col-sm-4 .vcodeimg").click(function() {
-			console.log("=====================");
 			$(".col-sm-4 .vcodeimg").attr("src", "vcode.png?v=" + Math.random());
 		});
 
@@ -141,7 +139,24 @@ position:absolute;
 		
 
 	});
-	//2
+	</script>
+	<script type="text/javascript">
+	function showImg1(){
+	    $('.bg_img').show();
+	    $('.img').show();
+	}
+	function showImg2(){
+	    $('.bg_img').show();
+	    $('.img').show();
+	}
+	function showImg3(){
+	    $('.bg_img').show();
+	    $('.img').show();
+	}
+	$('.bg_img').click(function(){
+	    $('.bg_img').hide();
+	    $('.img').hide();
+	});
 	</script>
 
 </body>

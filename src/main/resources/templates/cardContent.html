@@ -23,7 +23,11 @@
 	src="resources/bower_components/vue/dist/vue.js"></script>
 
 <style type="text/css">
-
+.pay1,.pay2,.pay3{
+	height: 60px;
+	width: 120px;
+	display: inline-block;
+	}
 </style>
 </head>
 <body>
@@ -71,6 +75,7 @@
 					</form>
 				</div>
 			</div>
+			
 			<div th:unless="${session.user!=null}">
 				<!-- 没有登录弹出登录框 -->
 				<form>
@@ -82,13 +87,67 @@
 						style="background-color: white; border: none; color: #4D4D4D; margin-top: 3px">收藏</button>
 
 				</form>
+					
 			</div>
+			
+
 			<!-- 帖子的html -->
 			<div class="card-body">
 				<!-- <div th:src="@{'/upload/word/'+${outPut}}"> </div> -->
 				<iframe th:src="@{'/upload/word/word/'+${outPut}}" width="1100"
 					height="800" frameborder="0"></iframe>
-
+		<!-- 帖子下载 -->
+		<div th:if="${session.user!=null}" style="float: right;">
+			<a th:href="@{'cardDown?carid='+${card.id}}">下载</a>
+		</div>
+		<div class="dashang">
+				<!-- 打赏 -->								
+					 <!-- 此处添加模态框 --> <!-- Button trigger modal -->
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" 
+						style="background-color:white;color: #4D4D4D;border:none;margin-top: 3px">打赏</button>
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true" data-backdrop="false">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+								
+									<div class="modal-header"
+										style="background-color: rgba(73, 134, 208,0.7)">
+										<h5 class="modal-title" id="exampleModalCenterTitle">
+											<b style="font-style: inherit; color: white;">听说打赏我的小可爱们都不会掉头发哦</b>
+										</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<!-- 模态对话框内容 -->
+											<div class="pay1" style="margin: 20px;">
+												<button type="button" class="btn btn-outline-primary"onclick="showImg1()" style="margin:10px 15px ">打赏0.01</button>											
+												<div class="bg_img" style="background:#191919;opacity:0.8;display:none;position:fixed;width:100%;height:100%;"></div>
+												<img class="img" src="resources/img/pay001.png" style="display:none;position:absolute;top:10%;left:0;width:100%"/>												
+											</div>	
+											<div class="pay2" style="margin: 20px 0px">
+												<button type="button" class="btn btn-outline-primary"onclick="showImg2()"style="margin:10px 15px ">打赏0.02</button>											
+												<div class="bg_img" style="background:#191919;opacity:0.8;display:none;position:fixed;width:100%;height:100%;"></div>
+												<img class="img" src="resources/img/pay002.png" style="display:none;position:absolute;top:10%;left:0;width:100%"/>	
+											</div>
+											<div class="pay3"style="margin: 20px">
+												<button type="button" class="btn btn-outline-primary"onclick="showImg3()" style="margin:10px 15px ">打赏0.03</button>											
+												<div class="bg_img" style="background:#191919;opacity:0.8;display:none;position:fixed;width:100%;height:100%;"></div>
+												<img class="img" src="resources/img/pay003.png" style="display:none;position:absolute;top:10%;left:0;width:100%"/>	
+											</div>																																			
+										
+											
+									</div>
+								
+								</div>
+							</div>
+						</div>
+		</div>
+	
 			</div>
 
 		</div>
@@ -327,7 +386,6 @@
 
     $(function(){
     	$(".col-sm-4 .vcodeimg").click(function() {
-			console.log("=====================");
 			$(".col-sm-4 .vcodeimg").attr("src", "vcode.png?v=" + Math.random());
 		});
         })
@@ -356,6 +414,24 @@
 			    }
 
 		 });
+	</script>
+		<script type="text/javascript">
+	function showImg1(){
+	    $('.bg_img').show();
+	    $('.img').show();
+	}
+	function showImg2(){
+	    $('.bg_img').show();
+	    $('.img').show();
+	}
+	function showImg3(){
+	    $('.bg_img').show();
+	    $('.img').show();
+	}
+	$('.bg_img').click(function(){
+	    $('.bg_img').hide();
+	    $('.img').hide();
+	});
 	</script>
 </body>
 </html>

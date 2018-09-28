@@ -28,7 +28,10 @@ public class Interceptor implements HandlerInterceptor {
 					|| requestUri.endsWith("/toCardContent") || requestUri.endsWith("/cardContent")
 					|| requestUri.endsWith(".html") || requestUri.endsWith(".js") || requestUri.endsWith(".jpeg")
 					|| requestUri.endsWith(".jpg") || requestUri.endsWith(".png") || requestUri.endsWith("/toErr")
-					|| requestUri.endsWith(".css")) {
+					|| requestUri.endsWith(".css")
+					|| requestUri.endsWith("eg")
+					|| requestUri.endsWith("sendEmail")
+					) {
 				return true;
 			} else if (requestUri.endsWith("/error")) {
 				response.sendRedirect("/toErr");

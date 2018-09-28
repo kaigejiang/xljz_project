@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>页面</title>
+</head>
+<body>
+	<div th:fragment="commen">
+		<h3>eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</h3>
+		<figure class="image ck-widget ck-appear ck-widget_selected"
+			contenteditable="false">
+			<img
+				src="data:image/jpeg;base64,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"/>
+			<figcaption
+				class="ck-editor__editable ck-editor__nested-editable ck-placeholder"
+				contenteditable="true" data-placeholder="Enter image caption">
+				<br data-cke-filler="true">
+			</figcaption>
+			<div class="ck-progress-bar"></div>
+		</figure>
+		<div style="position: fixed; top: 0px; left: -9999px; width: 42px;">image
+			widget</div>
+	</div>
+</body>
+</html>
