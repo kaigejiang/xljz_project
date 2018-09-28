@@ -30,7 +30,7 @@
          <li class="nav-item active"><a class="nav-link"> 切换主题： <select class="text-center" id="themeSel"> <option>cerulean</option> <option>cosmo</option> <option>cyborg</option> <option>darkly</option> <option>journal</option> <option>litera</option> <option>lux</option> </select> <span class="sr-only">(current)</span> </a></li> 
          <li class="nav-item active" id="front"><a class="nav-link" v-bind:href="'login'" v-on:click="loginDefault(event)"><span>登录</span></a></li> 
          <li class="nav-item active"> </li>
-         <li class="nav-link" th:inline="text">欢迎<a href="front/toUserCard" title="点击进入个人主页" th:inline="text">[[${session.user.name}]]</a>登录 </li> 
+         <li class="nav-link" th:inline="text">欢迎<a href="front/toUserCard" title="点击进入个人主页" th:inline="text">[[${session.user}!=null?${session.user.name}:'游客']]</a>登录 </li> 
         </ul> 
        </div> 
       </nav> 

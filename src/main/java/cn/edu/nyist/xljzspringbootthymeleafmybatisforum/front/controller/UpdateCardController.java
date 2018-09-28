@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.admin.service.CardService;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.common.model.Card;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.common.model.User;
+import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.front.util.PhotoUtil;
 import cn.edu.nyist.xljzspringbootthymeleafmybatisforum.util.Html2StringUtil;
 
 //修改帖子
@@ -85,8 +86,13 @@ public class UpdateCardController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	
+		String oldHtmlPath="WEB-INF/upload/word/word/"+cardService.findById(cid).getContent();
+		
 		int ret= cardService.updateById(cid,bt,newFileName);
+		if(ret>0) {
+			System.out.println(oldHtmlPath+"asdfghhgdfsa");
+			PhotoUtil.delFile(oldHtmlPath);
+		}
 		System.out.println(ret+"更新--------------------");
 		
 		return "redirect:/front/toUserCard";
