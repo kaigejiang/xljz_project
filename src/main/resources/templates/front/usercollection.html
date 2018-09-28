@@ -12,25 +12,42 @@
 	<script type="text/javascript"
 		src="/resources/bower_components/vue/dist/vue.js"></script>
 <title>用户信息</title>
+<style type="text/css">
+#wode{
+color: cornflowerblue;
+}
+#themeSel{
+    background-color: rgba(0.0.0.0);
+    color: aqua;
+}
+#myinput{
+ background-color: rgba(0.0.0.0);
+}
+</style>
 </head>
 <body>
+<!--  顶部--> 
+       <div style="background-color: rgba(0, 0, 0, 0.5);">
+       <div th:replace="front/commen/top::top"></div>
+       </div>
+    <!-- 顶部 --> 
 	<div class="container-fluid" style="margin-top: 6px; margin-right: 8px">
 		<div class="row">
 			<div class="col-md-2" style="margin-left: 40px">
 				<!-- 左边部分 -->
 				<div th:replace="front/commen/left::userleft"></div>
 			</div>
-			<div class="col-md-9 card bg-dark mb-3"  id="app">
-			<div class="card-header text-center" style="color: tomato;font-weight: bold;">我的收藏</div>
+			<div class="col-md-9"  id="app">
+			<div class="card-header text-center" style="color: tomato;font-weight: bold;background-color: rgba(0, 0, 0, 0.3)">我的收藏</div>
 				<!-- 我的帖子 -->
 				<template v-if="!pageInfo.list|| !pageInfo.list.length">
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item" th:text="无数据" style="background-color: #343a40;color: red;"></li>
+					<li class="list-group-item" th:text="无数据" style="background-color: rgba(0, 0, 0, 0);color: red;"></li>
 				</ul>
 				</template>
 				<template v-else="">
 				<ul class="list-group list-group-flush" >
-					<li class="list-group-item" v-for="card in pageInfo.list" style="background-color: #343a40">
+					<li class="list-group-item" v-for="card in pageInfo.list" style="background-color: rgba(0, 0, 0, 0);">
 						<div style="display: inline; color: greenyellow; font-weight: bold;">{{card.name}}
 							<img alt="" src="/resources/userimage/edit.svg" style="width: 18px;text-align: right;margin-left: 16px" >
 							<img id="img1" alt="" src="/resources/userimage/delete.svg" style="width: 18px;text-align: right;margin-left: 16px" onclick="delConfirm(event)">
@@ -85,6 +102,9 @@
 			</div>
 		</div>
 	</div>
+	<!-- 背景 -->
+	<canvas id='c' style="position:absolute;z-index:-1;top:0;left:0;background-color:black;"></canvas>
+	<script type="text/javascript" src="/resources/fonts/backjs_1.js"></script>
 	<input name="pageNo" type= "hidden" value= "1" />
 	<script type="text/javascript"
 		src="/resources/bower_components/jquery/dist/jquery.js">

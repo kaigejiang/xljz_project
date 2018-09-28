@@ -12,32 +12,49 @@
 	<script type="text/javascript"
 		src="/resources/bower_components/vue/dist/vue.js"></script>
 <title>用户信息</title>
+<style type="text/css">
+#wode{
+color: cornflowerblue;
+}
+#themeSel{
+    background-color: rgba(0.0.0.0);
+    color: aqua;
+}
+#myinput{
+ background-color: rgba(0.0.0.0);
+}
+</style>
 </head>
 <body>
+<!--  顶部--> 
+       <div style="background-color: rgba(0, 0, 0, 0.5);">
+       <div th:replace="front/commen/top::top"></div>
+       </div>
+    <!-- 顶部 --> 
 	<div class="container-fluid" style="margin-top: 6px; margin-right: 8px">
 		<div class="row">
 			<div class="col-md-2" style="margin-left: 40px">
 				<!-- 左边部分 -->
 				<div th:replace="front/commen/left::userleft"></div>
 			</div>
-			<div class="col-md-9 card text-white bg-dark mb-3"  id="app">
-			<div class="card-header text-center" style="color: tomato;font-weight: bold;">我的帖子</div>
+			<div class="col-md-9"  id="app">
+			<div class="card-header text-center" style="color: tomato;font-weight: bold;background-color: rgba(0, 0, 0, 0.3)">我的帖子</div>
 				<!-- 我的帖子 -->
 				<template v-if="!pageInfo.list|| !pageInfo.list.length">
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item" th:text="无数据" style="background-color: #343a40;color: red;"></li>
+					<li class="list-group-item" th:text="无数据" style="background-color: rgba(0, 0, 0, 0);color: red;"></li>
 				</ul>
 				</template>
 				<template v-else="">
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item" v-for="card in pageInfo.list" style="background-color: #343a40">
+					<li class="list-group-item" v-for="card in pageInfo.list"style="background-color: rgba(0, 0, 0, 0);">
 						<div style="display: inline; color: greenyellow; font-weight: bold;">{{card.name}}
 							<img alt="" src="/resources/userimage/edit.svg" style="width: 18px;text-align: right;margin-left: 16px" onclick="toEditCard(event)" >
 							<input type="hidden" v-bind:value="card.id">
 							<img id="img1" alt="" src="/resources/userimage/delete.svg" style="width: 18px;text-align: right;margin-left: 16px" onclick="delConfirm(event)">
 						</div>
 						<div style="color: gray; text-align: right; font-size: 13px;">点赞：{{card.praise}}</div>
-						<div style="text-align: right; font-size: 13px;color: gray">{{card.pubDate}}</div>
+						<div class="time" style="text-align: right; font-size: 13px;color: gray">{{card.pubDate | formatDate}}</div>
 					</li>
 				</ul>
 				</template>
@@ -80,12 +97,14 @@
 				<div class="modal-body">你确认要删除?</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">取 消</button>
+						data-dismiss="modal">取消</button>
 					<button type="button" class="btn btn-primary btn_ok">确定</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- 背景 -->
+	<canvas id='c' style="position:absolute;z-index:-1;top:0;left:0;background-color:black;"></canvas>
 	<input name="pageNo" type= "hidden" value= "1" />
 	<script type="text/javascript" src="/resources/bower_components/jquery/dist/jquery.slim.min.js">
 </script>
@@ -93,7 +112,7 @@
 <script type="text/javascript"
 		src="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js">
 </script>
-
+<script type="text/javascript" src="/resources/fonts/backjs_1.js"></script>
 	<script type="text/javascript">
 	var pageNum;
 	var app = new Vue({
@@ -102,6 +121,12 @@
 	        //提供默认值
 	        pageInfo: {}
 	    },
+	    filters: {
+	        formatDate(time) {
+	        var date = new Date(time);
+	        return formatDate(date, "yyyy-MM-dd");
+	        }
+	      },
 	    methods: {
 	        getData: function() {
 	            axios.post("/front/userCard?pageNo="+$('input[name="pageNo"]').val()).then(function(response) {
@@ -168,5 +193,4 @@
 			}
 		
 </script>
-</body>
 </html>
