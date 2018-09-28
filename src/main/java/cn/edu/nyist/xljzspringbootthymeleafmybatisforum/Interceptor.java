@@ -24,10 +24,11 @@ public class Interceptor implements HandlerInterceptor {
 		if (request.getSession().getAttribute("user") == null) {
 			if (requestUri.endsWith("/toLogin") || requestUri.endsWith("/vcode.png")) {
 				return true;
-			} else if (requestUri.endsWith("/login") || requestUri.endsWith("/home")
+			} else if (requestUri.endsWith("/login") || requestUri.endsWith("/home") || requestUri.endsWith("/toHome")
 					|| requestUri.endsWith("/toCardContent") || requestUri.endsWith("/cardContent")
-					|| requestUri.endsWith(".html") || requestUri.endsWith(".js") || requestUri.endsWith(".jpg")
-					|| requestUri.endsWith(".png")||requestUri.startsWith("/toErr")) {
+					|| requestUri.endsWith(".html") || requestUri.endsWith(".js") || requestUri.endsWith(".jpeg")
+					|| requestUri.endsWith(".jpg") || requestUri.endsWith(".png") || requestUri.endsWith("/toErr")
+					|| requestUri.endsWith(".css")) {
 				return true;
 			} else if (requestUri.endsWith("/error")) {
 				response.sendRedirect("/toErr");

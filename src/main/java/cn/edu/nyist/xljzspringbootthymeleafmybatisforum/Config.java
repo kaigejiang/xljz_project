@@ -52,7 +52,7 @@ public class Config extends WebMvcConfigurerAdapter {
 	public ThemeResolver geThemeResolver() {
 
 		CookieThemeResolver cookieThemeResolver = new CookieThemeResolver();
-		cookieThemeResolver.setDefaultThemeName("cerulean");
+		cookieThemeResolver.setDefaultThemeName("darkly");
 		return cookieThemeResolver;
 	}
 
