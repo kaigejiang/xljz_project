@@ -148,7 +148,7 @@
        <div class="col-md-6" style="background-0color: white;"> 
         <!-- 正中上 --> 
         <div th:replace="front/commen/lunbo::lunbo"></div>
-        <!--  正中下--> 
+        <!--  正中下-->    
         <div class="row" style="margin-top: 30px"> 					
          <ul id="getMore"> 
           <li v-for="card in pageInfo.list" style="width: 623px; height: 104px; list-style-type: none;" id="cardli"> 
@@ -156,17 +156,20 @@
             <div> 
              <div> 
               <a v-bind:href="'toCardContent?cid='+card.id" id="cardname">{{card.name}}</a> 
+              <img v-bind:src="'/upload/'+card.user.photo" style="width: 123px; height: 98px; float: right;" />
              </div> 
              <div id="cardcontent">
               {{card.content}}
+               
              </div> 
-             <div id="authorfront"> 
-              <span><a href="front/toUserCard">{{card.user.name}}</a></span> 
-              <span style="margin-left: 20px">{{card.praise}}</span> 
+             <div id="authorfront" > 
+              <span><a href="front/toUserCard" title="作者">{{card.user.name}}</a></span> 
+              <span style="margin-left: 20px;" title="点赞">{{card.praise}}</span> 
              </div> 
             </div> 
-            <span> <img v-bind:src="'/upload/'+card.user.photo" style="width: 123px; height: 98px; float: right;" /> </span> 
-           </div> </li> 
+   
+           </div> 
+           </li> 
          </ul> 
          <div class="alert alert-dark" role="alert" id="loadmore" v-on:click="onPageLinkClick" style="width: 400px; padding-top: 5px; padding-bottom: 0px; line-height: 10px;; margin-left: 125px; margin-top: 20px;"> 
           <p style="height: 10px" class="text-center">加载更多</p>  
@@ -346,13 +349,14 @@
           			      		    	var html = '';
 
           			      		    	for(var i = 0;i<pageInfoH.size;i++){
-          			      		    	html += '<li id="cardli" style="border:1px ;width: 623px; height: 104px; list-style-type: none;"><div><div>'+
-											'<div><a href="toCardContent?cid='+pageInfoH.list[i].id+'" id="cardname">'+pageInfoH.list[i].name+'</a></div>'+
-											'<div id="cardcontent">'+pageInfoH.list[i].content+'</div>'+
-											'<div><span>'+pageInfoH.list[i].user.name+'</span>'+
-											'<span style="margin-left: 20px">'+pageInfoH.list[i].praise+'</span></div></div>'+
-											'<div><img src="/upload/'+pageInfoH.list[i].user.photo+'"style="width: 123px; height: 98px;float: right;"></div>'+
-											'</div></li>'
+          			      		    	html+='<li style="width: 623px; height: 104px; list-style-type: none;" id="cardli"><div><div>'+ 
+          			                   '<div><a v-bind:href="toCardContent?cid='+pageInfoH.list[i].id+'" id="cardname">'+pageInfoH.list[i].name+'</a>'+ 
+          			                   '<img src="/upload/'+pageInfoH.list[i].user.photo+'" style="width: 123px; height: 98px; float: right;" /></div>'+ 
+          			                   '<div id="cardcontent">'+pageInfoH.list[i].content+'</div>'+ 
+          			                   '<div id="authorfront" ><span><a href="front/toUserCard" title="作者">'+pageInfoH.list[i].user.name+'</a></span>'+ 
+          			                   '<span style="margin-left: 20px;" title="点赞">'+pageInfoH.list[i].praise+'</span>'+
+          			                   '</div></div>'+  
+          			                   '</div></li>' 
               			      		    	}
 										$('#getMore li:last-child').after(html);//在最后的li后面插入html代码
 										

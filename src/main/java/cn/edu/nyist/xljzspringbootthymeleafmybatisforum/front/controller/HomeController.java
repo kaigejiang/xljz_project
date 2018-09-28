@@ -33,6 +33,7 @@ public class HomeController {
 		@ResponseBody
 		public Map<String, Object> home(@RequestParam(defaultValue="",required=false)String name,
 			   @RequestParam(defaultValue="1",required=false) int pageNum
+			  
 			   
 			  
 			   ){//pageNum默认值是1

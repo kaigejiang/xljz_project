@@ -15,16 +15,128 @@
 	src="resources/bower_components/vue/dist/vue.min.js"></script>
 <script type="text/javascript"
 	src="resources/bower_components/axios/dist/axios.min.js"></script>
+<style type="text/css">
+#cardname {
+	background-color: rgba(0, 0, 0, 0);
+	box-sizing: border-box;
+	color: rgb(51, 51, 51);
+	font-size: 18px;
+	font-weight: 700;
+	height: 27px;
+	line-height: 27px;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-bottom: 4px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: -7px;
+	text-align: left;
+	text-decoration-color: rgb(51, 51, 51);
+	text-size-adjust: 100%;
+	width: 483px;
+	word-wrap: break-word;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#cardcontent {
+	box-sizing: border-box;
+	color: rgb(153, 153, 153);
+	display: block;
+	font-family: -apple-system, "SF UI Text", Arial, "PingFang SC",
+		"Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei",
+		sans-serif;
+	font-size: 13px;
+	height: 48px;
+	line-height: 24px;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-bottom: 8px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	text-align: left;
+	text-size-adjust: 100%;
+	width: 483px;
+	word-wrap: break-word;
+	-webkit-margin-after: 8px;
+	-webkit-margin-before: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-margin-start: 0px;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#cardli {
+	border-bottom-color: rgb(240, 240, 240);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	box-sizing: border-box;
+	color: rgb(51, 51, 51);
+	display: list-item;
+	font-family: -apple-system, "SF UI Text", Arial, "PingFang SC",
+		"Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei",
+		sans-serif;
+	font-size: 17px;
+	height: 140px;
+	line-height: 20px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-bottom: 15px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	min-height: 140px;
+	padding-bottom: 20px;
+	padding-left: 0px;
+	padding-right: 2px;
+	padding-top: 15px;
+	position: relative;
+	text-align: left;
+	text-size-adjust: 100%;
+	width: 625px;
+	word-wrap: break-word;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#authorfront {
+	box-sizing: border-box;
+	color: rgb(51, 51, 51);
+	display: block;
+	font-size: 12px;
+	font-weight: 400;
+	height: 20px;
+	line-height: 20px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	padding-right: 0px;
+	text-align: left;
+	text-size-adjust: 100%;
+	width: 483px;
+	word-wrap: break-word;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#front {
+	border: 2px;
+	border-color: red;
+	border-radius: 30px;
+	border-top-color: rgba(236, 97, 73, 0.7);
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+}
+</style>
 </head>
 <body>
 	<div>
 		<div class="container-fluid" id="app" style="position: absolute;">
-			<div class="row card">
-				<div class="col-md-12 card">
+			<div class="row card" >
+				<div class="col-md-12 card" style=" z-index: 1">
 					<!--  顶部-->
 					<div>
 						<div th:replace="front/commen/top::top"></div>
 					</div>
+					<!-- 顶部 -->
 				</div>
 			</div>
 			<!-- 顶部 -->
@@ -35,71 +147,53 @@
 						<div class="col-md-1"></div>
 						<!-- 中左 -->
 						<div class="col-md-2 navbar-light text-center">
-							<div style="margin-top: 100px; margin-right: 50px;"
-								th:fragment="mainleft">
-								<div class="alert alert-primary" role="alert">
-									<a >科学热门</a>
-								</div>
-								<div class="alert " role="alert"
-									style="background-color: #B7D6EC">
-									<a >技术热门</a>
-								</div>
-								<div class="alert alert-success" role="alert">
-									<a >人文热门</a>
-								</div>
-								<div class="alert alert-danger" role="alert">
-									<a>生活热门</a>
-								</div>
-							</div>
+							<div th:replace="front/commen/mainleft::mainleft"></div>
 						</div>
 						<!-- 正中 -->
 						<div class="col-md-6" style="background-0color: white;">
 							<!-- 正中上 -->
-							 <div th:replace="front/commen/lunbo::lunbo"></div>
+							<div th:replace="front/commen/lunbo::lunbo"></div>
 							<!--  正中下-->
 							<div class="row" style="margin-top: 30px">
 								<!-- 正中下导航栏 -->
 								<nav class="navbar navbar-light bg-light">
 									<div>
-										<form action="front/toHome" class="form-inline" id="seachName"
-											v-on:click.prevent="onSubmit">
+										<form action="front/cardScience" class="form-inline"
+											id="seachName" v-on:click.prevent="onSubmit">
 											<!-- 加class="form-inline" 在一行 -->
 											<div style="margin-left: 10px;">
-											 <input type="hidden" name="tid" th:value="${tid}">
-												<input name="pageNum" type="hidden" value="1" /> <input
-													type="text" class="form-control mr-sm-2" name="name"
+												<input type="hidden" name="tid" th:value="${tid}" /> <input
+													name="pageNum" type="hidden" value="1" /> <input
+													type="hidden" class="form-control mr-sm-2" name="name"
 													placeholder="搜索资源" v-bind:value="name" />
-												<button type="button"
-													class="btn btn-outline-success my-2 my-sm-0" value="">
-													<span class="badge badge-light">搜索</span>
-												</button>
+
 											</div>
 										</form>
 									</div>
 								</nav>
 								<div class="col-md-12">
-									<table class="table">
-										<thead>
-											<tr>
-												<th>标题</th>
-												<th>作者</th>
-												<th>收藏</th>
-												<th style="display: none">书籍类型</th>
-												<th>发布时间</th>
-											</tr>
-										</thead>
-										<tbody>
-											<!--  放置循环-->
-											<tr v-for="card in pageInfo.list">
-												<th><a v-bind:href="'toCardContent?cid='+card.id">{{card.name}}</a></th>
-												<th>{{card.user.name}}</th>
-												<th>{{card.praise}}</th>
-												<th style="display: none">{{card.type.name}}</th>
-												<td>{{card.pubDate | dateFrm}}</td>
-												<td><input type="hidden" name="card.id" /></td>
-											</tr>
-										</tbody>
-									</table>
+									<ul id="getMore">
+										<li v-for="card in pageInfo.list"
+											style="width: 623px; height: 104px; list-style-type: none;"
+											id="cardli">
+											<div>
+												<div>
+													<div>
+														<a v-bind:href="'toCardContent?cid='+card.id"
+															id="cardname">{{card.name}}</a> <img
+															v-bind:src="'/upload/'+card.user.photo"
+															style="width: 123px; height: 98px; float: right;" />
+													</div>
+													<div id="cardcontent">{{card.content}}</div>
+													<div id="authorfront">
+														<span><a href="front/toUserCard" title="作者">{{card.user.name}}</a></span>
+														<span style="margin-left: 20px;" title="点赞">{{card.praise}}</span>
+													</div>
+												</div>
+
+											</div>
+										</li>
+									</ul>
 								</div>
 								<!-- 分页链接 -->
 								<div class="card-footer text-muted" style="float: right;">
@@ -184,13 +278,13 @@
              pageInfo:{},
              pageNum:'',
              name:"",
-             author:{}
-             
+             author:{},
+             tid:''      
            },
       	methods:{
       			    //定义原始页面数据
       			getData:function(){
-      			    	 axios.post("front/cardScience?"+$("#seachName").serialize()).then(function(response){
+      			    	 axios.post("front/cardScience?"+'tid='+[[${tid}]]+'&'+$("#seachName").serialize()).then(function(response){
       			      		     if (response.data) {
       			      		       app.pageInfo=response.data.pageInfo;
       			      		       pageNum=response.data.pageInfo.pageNum;
