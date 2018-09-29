@@ -5,6 +5,11 @@
 <title>登录</title>
 <!-- 响应式 -->
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<!-- js动画背景 -->
+<meta name="description" content="particles.js is a lightweight JavaScript library for creating particles."/>
+<meta name="author" content="Vincent Garreau" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link href="resources/bower_components/login2/css/style.css" rel="stylesheet" type="text/css"/>
 <link href="resources/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="resources/style.css" rel="stylesheet" type="text/css"/>
 
@@ -15,39 +20,62 @@
 	top: 50%;
 	background-color: rgba(63,62,60,0.0);
 }
-
-body{
-	background-image: url("resources/img/bacg2.jpg");
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-
-}
 #pwdIcon span,#nameIcon span{
 position:absolute;
     left:6%;
     top:10px;
     color: #4D4D4D;
 }
-#footercont a{color: #212529;}
+#footercont a{color:black;}
 .headimg{position: fixed;left:10px;top:-20px}
-
+input{opacity:0.2;}
 </style>
 </head>
 
 <body>
-	<div class="col-md-12" style="background-color: #f5f5f5;height: 50px">
-<div>
-<div class="headimg">
-	<img src="resources/img/lg.jpg"/>
-<img src="resources/img/22.png"/>
+
+<!-- js背景-->
+<!-- count particles -->
+<div class="count-particles">
+  <span class="js-count-particles">--</span> particles
 </div>
+<!-- particles.js container -->
+<div id="particles-js"></div>
+<script type="text/javascript" src="resources/bower_components/login2/particles.min.js"></script>
+<script type="text/javascript" src="resources/bower_components/login2/js/app.js"></script>
+<script type="text/javascript" src="resources/bower_components/login2/js/lib/stats.js"></script>
+<script type="text/javascript">
+var count_particles, stats, update;
+stats = new Stats;
+stats.setMode(0);
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.left = '0px';
+stats.domElement.style.top = '0px';
+document.body.appendChild(stats.domElement);
+count_particles = document.querySelector('.js-count-particles');
+update = function() {
+  stats.begin();
+  stats.end();
+  if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+    count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+  }
+  requestAnimationFrame(update);
+};
+requestAnimationFrame(update);
+</script>
+<!-- js背景结束 -->
+<div class="col-md-12" style="background-color: #f5f5f5;height: 50px">
+
+<div class="headimg">
+	<img src="resources/img/photo5.jpg"style="width: 80px;height: 70px;position: fixed;left: 8px;top: 5px"/>
+	<img src="resources/img/22.png" style="margin-left: 90px;margin-top: 10px"/>
+</div>
+<div style="position: fixed;right: 20px;top: 5px">
 	<ul class="nav justify-content-end">
-  		<li class="nav-item"><a class="nav-link" href="/toReg" style="color: #4D4D4D;margin-right: -20px">注册</a></li>
-  		<li class="nav-item"><a class="nav-link" href="/exit" style="color: #4D4D4D">主页</a></li>
+  		<li class="nav-item"><a class="nav-link" href="/toReg" style="color: #6C757D;margin-right: -20px">注册</a></li>
+  		<li class="nav-item"><a class="nav-link" href="/exit" style="color: #6C757D">主页</a></li>
     </ul>	
- </div>
-	
+    </div>	
 </div>
 
 	<div class="container-fluid w-50">
@@ -81,21 +109,21 @@ position:absolute;
 						</div>
 						<div class="col-sm-4">
 							
-							<img title="点击更换图片" src="vcode.png" class="vcodeimg" /> <a class="vcodeimg">看不清，换一张</a> 
+							<img title="点击更换图片" src="vcode.png" class="vcodeimg" /> <a class="vcodeimg" style="color: #6C757D">看不清，换一张</a> 
 						</div>
 					</div>
 					
 					
 					<div class="form-group row offset-md-2">
 						<div class="col-sm-10">
-							<button type="submit" class="btn btn-primary btn-lg btn-block" style="background-color:rgb(73,134,208)">登录</button>
+							<button type="submit" class="btn btn-primary btn-lg btn-block" style="background-color:rgba(73,134,208,0.7)">登录</button>
 						</div>
 					</div>
 
 					<div class="form-group row offset-md-2">
 						<div class="col-sm-4" style="margin-top: 8px">
-							<a href="/toReg"><span style="color: #FFFFFF">立即注册</span></a>
 							
+							<div><a href="/toReg"><span style="color: #6C757D">立即注册</span></a></div>
 						</div>
 					</div>
 	
@@ -114,7 +142,7 @@ position:absolute;
 			<a href="#" target="_blank" >客服中心</a> |
 			<a href="#" target="_blank" >网站导航</a> <br>
 		</div>
-		<div style="text-align: center;line-height: 80px;margin-top: -20px">
+		<div style="text-align: center;line-height: 80px;margin-top: -20px;color: black">
 			 <p class="text-center" >Copyright © 2018-10-1 All rights reserved.</p>
 		</div>
 	
@@ -129,7 +157,6 @@ position:absolute;
 			$(".col-sm-4 .vcodeimg").attr("src", "vcode.png?v=" + Math.random());
 		});
 
-
 		//将登录框移动到中间位置
 		$(".container-fluid.w-50").css({
 				"margin-top":-$(".container-fluid.w-50").height()/2+"px",
@@ -137,7 +164,6 @@ position:absolute;
 			
 			});
 		
-
 	});
 	</script>
 	<script type="text/javascript">

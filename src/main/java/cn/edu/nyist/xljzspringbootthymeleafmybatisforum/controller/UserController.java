@@ -32,6 +32,7 @@ public class UserController {
 	public UserController() {
 
 	}
+	
 		
 	// 跳转到注册界面
 		@RequestMapping(path = "/toReg")

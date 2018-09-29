@@ -42,7 +42,7 @@ public class Interceptor implements HandlerInterceptor {
 			}
 		} else {
 			if (requestUri.endsWith("/login")) {
-				response.sendRedirect("/home");
+				response.sendRedirect("/front/toHome");
 				return false;
 			}
 			return true;
